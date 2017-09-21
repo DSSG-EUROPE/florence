@@ -1,0 +1,30 @@
+.plot-page {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: arial;
+}
+
+.plot-wrapper {
+    margin-bottom: 80px;
+}
+
+.plotly-div {
+
+}
+
+.plotly-div.half-plot {
+    display: inline-block;
+    width: 49%;
+}
+
+.plot-legend {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#foreign-length-stay, #italian-length-stay {
+    max-height: 420px;
+    overflow: hidden;
+}

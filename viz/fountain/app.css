@@ -1,0 +1,114 @@
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+	-webkit-font-smoothing: antialiased;
+  margin:0;
+  padding:0;
+  overflow:hidden;
+}
+
+h4 {
+	margin-top: 25px;
+	margin-bottom: 20px;
+	font-size: 1.3em;
+    font-weight: normal;
+}
+
+.legend-info {
+	position: absolute;
+	top: 80px;
+	right: 25px;
+	width: 284px;
+	height: 450px;
+    background: #fff;
+    box-shadow: 0 0 4px rgba(0,0,0,.15);
+    padding: 12px 24px;
+    outline: none;
+}
+
+.legend-info.tall {
+	height: 680px;
+}
+
+.legend-info h3 {
+    font-size: 1.5em;
+    font-weight: 300;
+    margin: 8px 0;
+    text-transform: uppercase;
+}
+
+.top-list {
+	margin-top: 20px;
+}
+
+.list-item {
+	box-sizing: border-box;
+	width: 50%;
+	display: inline-block;
+	margin-bottom: 15px;
+}
+
+.museum-name {
+	text-transform: uppercase;
+    font-size: .833em;
+}
+
+.museum-number {
+	font-size: 2.1em;
+	font-weight: bold;
+	margin: 5px 0;
+}
+
+.description {
+	margin-bottom: 30px;
+    font-weight: 200;
+    font-size: 1.05em;
+}
+
+.header {
+	padding: 15px 20px;
+    box-shadow: 0 0 4px rgba(0,0,0,.15);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: white;
+    height: 25px;
+}
+
+.site-title {
+    font-size: 1.5em;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.site-tabs {
+	position: absolute;
+	right: 20px;
+	top: 0px;
+	height: 50px;
+	width: 800px;
+}
+
+.tab-item {
+	float: right;
+	padding: 17.5px 3px;
+	margin: 0 15px;
+	color: #444;
+	display: inline-block;
+	text-transform: uppercase;
+    font-size: 1em;
+    font-weight: 400;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-bottom: 5px solid white;
+}
+
+.tab-item:hover {
+	color: black;
+}
+
+.tab-item.selected {
+	border-color: #333;
+}

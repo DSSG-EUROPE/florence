@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <link href="css/plots.css" rel="stylesheet" type="text/css" media="all"/>
+  </head>
+  <body>
+  <div class="plot-page">
+    <div class="plot-wrapper">
+      <div class="plotly-div" id="total-presences"></div>
+      <div class="plot-legend">
+        <strong>Figure 1.</strong> The total estimated presences per day for all
+          types of people in the city of Florence during the summer. We can see
+          that on an average day, one third of the people in the city are
+          tourists. That ratio increases in the month of August as foreign
+          tourism remains somewhat constant, whereas the resident population
+          makes a dip. We can also see cyclic activity that is likely due in
+          part to reduced calling on weekends.
+      </div>
+    </div>
+
+    <div class="plot-wrapper">
+      <div class="plotly-div" id="foreign-presences"></div>
+      <div class="plot-legend">
+        <strong>Figure 2.</strong> The breakdown of the estimates for foreign
+          presence. The breaks are done by region of the world, with the most
+          common tourist countries (The United States, France, Germany, Spain,
+          and China) plotted separately instead of aggregated into their region.
+          This shows that peak visiting months are not the same for every country.
+      </div>
+    </div>
+
+    <div class="plot-wrapper">
+      <div class="plotly-div" id="italian-presences"></div>
+      <div class="plot-legend">
+        <strong>Figure 3.</strong> The breakdown of the estimates for presence
+          of Italian visitors. We see that the majority of Italian visitors to
+          Florence come from elsewhere in Tuscany.
+      </div>
+    </div>
+
+    <div class="plot-wrapper">
+      <div class="plotly-div half-plot" id="foreign-number-trips"></div>
+      <div class="plotly-div half-plot" id="italian-number-trips"></div>
+      <div class="plot-legend">
+        <strong>Figure 4.</strong> The breakdown of the estimates for number of
+          visits foreign and Italian visitors make to the city of Florence
+          during the summer months of June 1st, 2016 through September 30th,
+          2016.
+      </div>
+    </div>
+
+    <div class="plot-wrapper">
+      <div class="plotly-div half-plot" id="foreign-length-stay"></div>
+      <div class="plotly-div half-plot" id="italian-length-stay"></div>
+      <div class="plot-legend">
+        <strong>Figure 5.</strong> The breakdown of the estimates for how many
+          days foreign and Italian visitors stay in the city of Florence during
+          the summer months of June 1st, 2016 through September 30th, 2016.
+
+      </div>
+    </div>
+  </div>
+  </body>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="cdrPlots.js"></script>
+</html>
