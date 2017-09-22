@@ -6,41 +6,22 @@ import cPickle as pickle
 import os
 
 
-routes_query = """
-    SELECT 
-      paths.cust_id, 
-      paths.lon, 
-      paths.lat, 
-      date_part('hour', paths.date_time_m) AS hour, 
-      date_part('minute', paths.date_time_m) AS minute,
-      paths.tower_id
-    FROM optourism.foreigners_path_records_joined AS paths
-      JOIN optourism.foreigners_features AS features
-      ON features.cust_id = paths.cust_id
-        AND (
-          date_part('day', paths.date_time_m) = 27 
-            OR 
-          date_part('day', paths.date_time_m) = 28
-        )
-        AND date_part('month', paths.date_time_m) = 7
-        AND features.days_active < 15
-    ORDER BY cust_id ASC, hour ASC, minute ASC; 
-"""
-
-
 def get_routes(location_pairs, routes_path, get_time=False):
     """
-    Gets the walking route from Open Street Routing Machine for an array
+    Gets the driving route from Open Street Routing Machine for an array
     of pairs of coordinates. Decodes the returned polyline routes into an
     array or lat/lon tuples. Saves the resulting paths as a pickle.
 
     Args:
         location_pairs (dictionary): The set of location pairs to query for
         routes_path (string): The file path for the routes pickle
+        get_time (bool): whether or not to save the duration for route
 
     Returns:
         array: The routes between all of the supplied pairs of locations
     """
+
+    # TODO: Change this to being walking directions. Use google maps routing.
 
     routes = {}
     if os.path.isfile(routes_path):
@@ -49,7 +30,8 @@ def get_routes(location_pairs, routes_path, get_time=False):
     for location_pair_key in location_pairs:
         if location_pair_key not in routes:
             location = location_pairs[location_pair_key]
-            url = 'http://router.project-osrm.org/route/v1/foot/%s' % location
+            url = 'http://router.project-osrm.org/route/v1/driving/%s' % \
+                  location
             response = requests.get(url)
             route = response.json()['routes'][0]
 
@@ -106,6 +88,15 @@ def get_tower_pairs(query):
 
 
 def museum_main(routes_path):
+    """
+    Calculates routes between every pair of museums that are visited in a row
+
+    Args:
+        routes_path (string): path for output museum routes pickle
+    """
+
+    # TODO: Finish this so that it creates paths. Need to complete walking
+    # directions implementation for routes first
 
     conn = dbutils.connect()
     cursor = conn.cursor()
@@ -123,21 +114,21 @@ def museum_main(routes_path):
     for start_museum in records:
         start_lat, start_lon, start_code = start_museum
         for end_museum in records:
-            end_lat, end_lon, end_code = end_museum;
+            end_lat, end_lon, end_code = end_museum
             key = '{0}{1}'.format(start_code, end_code)
             reverse_key = '{1}{0}'.format(start_code, end_code)
 
             if end_code == start_code or reverse_key in museum_pairs:
                 continue
 
-            location = '{0},{1};{2},{3}'.format(start_lon, start_lat, end_lon, end_lat)
+            location = '{0},{1};{2},{3}'.format(start_lon, start_lat, end_lon,
+                                                end_lat)
             museum_pairs[key] = location
 
     return get_routes(museum_pairs, routes_path, get_time=True)
 
 
-
-def main(routes_path, output_path):
+def cdr_main(routes_path, output_path):
     """
     Retrieves a set of CDR records for users with notable paths and
     interpolates these paths with routes between their tower locations
@@ -151,6 +142,27 @@ def main(routes_path, output_path):
 
     conn = dbutils.connect()
     cursor = conn.cursor()
+
+    routes_query = """
+        SELECT 
+          paths.cust_id, 
+          paths.lon, 
+          paths.lat, 
+          date_part('hour', paths.date_time_m) AS hour, 
+          date_part('minute', paths.date_time_m) AS minute,
+          paths.tower_id
+        FROM optourism.foreigners_path_records_joined AS paths
+          JOIN optourism.foreigners_features AS features
+          ON features.cust_id = paths.cust_id
+            AND (
+              date_part('day', paths.date_time_m) = 27 
+                OR 
+              date_part('day', paths.date_time_m) = 28
+            )
+            AND date_part('month', paths.date_time_m) = 7
+            AND features.days_active < 15
+        ORDER BY cust_id ASC, hour ASC, minute ASC; 
+    """
 
     cursor.execute(routes_query)
     records = cursor.fetchall()
@@ -210,10 +222,9 @@ def main(routes_path, output_path):
 if __name__ == '__main__':
     curr_dir = os.path.dirname(os.path.abspath(__file__))
     pickle_path = os.path.join(curr_dir, 'output', 'tower_routes.p')
-    output_path = os.path.join(curr_dir, 'output', 'deckgl_routes.json')
+    cdr_output_path = os.path.join(curr_dir, 'output', 'tower_routes.json')
 
-    # get_tower_pairs(routes_query, pickle_path) # Enable if the path pickle doesn't exist
-    main(pickle_path, output_path)
+    cdr_main(pickle_path, cdr_output_path)
 
-    # museum_pickle_path = os.path.join(curr_dir, 'output', 'museum_routes.p')
-    # museum_main(museum_pickle_path)
+    museum_pickle_path = os.path.join(curr_dir, 'output', 'museum_routes.p')
+    museum_main(museum_pickle_path)
