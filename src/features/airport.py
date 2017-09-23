@@ -155,7 +155,6 @@ def plot_cdr_near_airport_per_day(**kwargs):
     total_data = foreigners_data.add(italians_data, fill_value=0)
 
     total_data['cust_id'] = total_data['cust_id'] * 11
-    print(total_data.head())
     total_data.plot.line(y='cust_id', **kwargs)
 
 
