@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -7,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         
-        <title>DSSG EUROPE - FirenzeCard Analysis</title>
+        <title>DSSG EUROPE - Call Detail Records Analysis</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -97,8 +96,9 @@ div.panel {
                                 <li><a href="index.html">Home</a></li>
                                 <li><a href="firenze_index.html">FirenzeCard</a></li>
                                 <li><a href="cdr_index.html">Call Detail Records</a></li>
-                                <li><a href="fountain.html" target="_blank">Visualizations</a></li>
+                                <li><a href="fountain.html"  target="_blank">Visualizations</a></li>
                 <li><a href="https://dssg.uchicago.edu/europe/">DSSG Europe</a></li>
+
                             </ul>
 						</div>
 					</div><!--end of row-->
@@ -117,7 +117,7 @@ div.panel {
                             <div style="float:right;width:70%;">
 <!--                      <div class="container"> -->
 <!-- 								<div class="row"> -->
-                                   <iframe name = 'plot' width="800" height="500" frameborder="0" scrolling="yes" src="firenze.html"></iframe>
+                                   <iframe name = 'plot' width="800" height="500" frameborder="0" scrolling="yes" src="cdr_intro.html"></iframe>
                                 </div>
 <!--                             </div> -->
 <!--                             </div> -->
@@ -126,49 +126,49 @@ div.panel {
                                      <!-- <button onclick=myFunction(); class="dropbtn">Analyses</button>                  -->
                                 
 <div>
-    <button class="accordion">State Museum and FirenzeCard entries</button>
+    <button class="accordion">Total estimated daily presences</button>
 <div class="panel">
-  <a href="http://plot.ly/~qiweihan/426.embed?share_key=ALTSeJl0uf6L7Qn8yd7eJt" target="plot">  
+  <a href="https://plot.ly/~qiweihan/250.embed?share_key=WtUQa7FuzL6C1StwF3OYQC" target="plot">  
   <p>Open Graph</p></a>
-  <p>The state museum dataset provided is a monthly aggregate of the number of visitor entries at national state museums, allowing to make broader estimates of the total count of tourists visiting attractions during the period of 1st June until 30th September 2016. There is a large but not total overlap between Firenzecard sites and state museum sites. Most visitors of museums and tourist attractions purchase the normal museum tickets without the card, however approximately 10% of all museum visitors recorded in the summer 2016 entered on the Firenzecard. This graph shows us the total number of museum entries for both the State Museum dataset and the Firenzecard dataset, over the period of June 1 - September 30 2016. </p>
+  <p>The total estimated presences per day for all types of people in the city of Florence during the summer. We can see that on an average day, one third of the people in the city are tourists. That ratio increases in the month of August as foreign tourism remains somewhat constant, whereas the resident population makes a dip. We can also see cyclic activity that is likely due in part to reduced calling on weekends.</p>
 </div><br>
-      <button class="accordion">Entries per museum</button>
+      <button class="accordion">Estimated daily presence of foreign visitors</button>
 <div class="panel">
-  <a href="http://plot.ly/~qiweihan/433.embed?share_key=aoL9FNs7XX3DvxvJLC1foJ"  target="plot">
+  <a href="https://plot.ly/~qiweihan/246.embed?share_key=IEEhKMOtIGJzLit2Ri4kdK"  target="plot">
   <p>Open Graph</p></a>
-  <p>This graph shows us the number of museums visited per card, over the period of June 1 - September 30 2016. We observe that most Firenzecard users visit 6 museums.</p>
+  <p>The estimates for foreign presence. The breaks are done by region of the world, with the most common tourist countries (The United States, France, Germany, Spain, and China) plotted separately instead of aggregated into their region. This shows that peak visiting months are not the same for every country.</p>
 </div><br>
 
 
-<button class="accordion">Number of museums visited</button>
+<button class="accordion">Estimated daily presence of Italian visitors</button>
 <div class="panel">
-  <a href="http://plot.ly/~qiweihan/148.embed?share_key=tGjLEepDtyfbRwI5eOfkvJ" target="plot"><p>Open Graph</p></a>
-  <p>This graph shows us the number of museums visited per card, over the period of June 1 - September 30 2016. We observe that most Firenzecard users visit 6 museums.</p>
+  <a href="https://plot.ly/~qiweihan/244.embed?share_key=iXHOGtjCxeUivQBfoxDxqq" target="plot"><p>Open Graph</p></a>
+  <p>The estimates for presence of Italian visitors. We see that the majority of Italian visitors to Florence come from elsewhere in Tuscany.</p>
 </div><br>
 
-<button class="accordion">Card Activation</button>
+<button class="accordion">Number of visits of each foreign visitor</button>
 <div class="panel">
-  <a href="http://plot.ly/~qiweihan/487.embed?share_key=5VcYR5R6YVIPeu45CyqzW8" target="plot"><p>Open Graph</p></a>
-  <p>This graph shows us the most common days of FirenzeCard activation, over the period of June 1 - September 30 2016. Two of the most popular museums to first use a card are the Uffizi and the Accademia. Given that both of those museums are closed on Mondays, we see an expected surge of activations on Tuesday. This has broader implications for the types of people buying Firenzecards; since many users want to use their card to obtain priority entry at the top museums, people are less likely to want to use a Firenzecard if their trip to Florence includes a Monday. Additionally, this large surge in activations on Tuesdays can partially account for the lowered entry rates with the Firenzecard we see on Friday, Saturday, Sunday,   and   Monday   at   many   museums.</p>
+  <a href="https://plot.ly/~qiweihan/445.embed?share_key=iixTNUq0D9b1g7sh3YhU6Q" target="plot"><p>Open Graph</p></a>
+  <p>The breakdown of the estimates for number of visits foreign visitors make to the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.</p>
 </div><br>
 
-<button class="accordion">Museum entries per day of the week</button>
+<button class="accordion">Number of visits of each Italian visitor</button>
 <div class="panel">
-  <a href="http://plot.ly/~qiweihan/417.embed?share_key=LWI91JrIbVRls7HeRDoNjt" target="plot"><p>Open Graph</p></a>
-  <p>This graph shows us the total number of museum entries at different FirenzeCard attractions, over the period of June 1 - September 30 2016.</p>
+  <a href="https://plot.ly/~qiweihan/447.embed?share_key=Thtu3W58waDpqphPczgH3B" target="plot"><p>Open Graph</p></a>
+  <p>The breakdown of the estimates for number of visits italian visitors make to the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.</p>
 </div><br>
 
-<button class="accordion">Museum entries per hour</button>
+<button class="accordion">Duration of stay of foreign visitors</button>
 <div class="panel">
-  <a href="http://plot.ly/~qiweihan/326.embed?share_key=z97J3oziXhPcAIihPIDsBM" target="plot"><p>Open Graph</p></a>
-  <p>This graph shows us the total number of hourly museum entries at different FirenzeCard attractions, over the period of June 1 - September 30 2016. Starting at 8am, a large number of tourists are already visiting attractions. It is also less common to visit museums later in the afternoon and evening. This is due in part to the fact that there are fewer museums open at these times. One would assume that a visitor would not want to enter a museum too close to its closing time.</p>
+  <a href="https://plot.ly/~qiweihan/443.embed?share_key=kEUD1cQn7gZmoAtCN2vNaN" target="plot"><p>Open Graph</p></a>
+  <p>The estimates for how many days foreign visitors stay in the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.</p>
 </div><br>
 
-<button class="accordion">Museum entries per day of the summer</button>
+<button class="accordion">Duration of stay of Italian visitors</button>
 <div class="panel">
-  <a href="http://plot.ly/~qiweihan/415.embed?share_key=ukMQk6WjJfS7IUGISzjxea" target="plot"><p>Open Graph</p></a>
-  <p>This graph shows us the total number of museum entries at different FirenzeCard attractions, over the period of June 1 - September 30 2016. The peak number of entries for Firenzecard holders is in August.</p>
-</div>
+  <a href="https://plot.ly/~qiweihan/439.embed?share_key=YtTwbxvPjL80LV6dCaTvdf" target="plot"><p>Open Graph</p></a>
+  <p>The estimates for how many days Italian visitors stay in the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.</p>
+</div><br>
 
   </div>
 </div>
@@ -176,18 +176,6 @@ div.panel {
                        <!--        <iframe name = 'description' width="200" height="300" frameborder="0" scrolling="no" src="">
    </iframe> -->
 
-
-
-
-                                
-
-<!-- 							<p class="lead">
-								Text here. Geographical timeseries map below: to do: make day selectable through plot. for now, day is August 10th as an example.
-							</p>
-                            <div class="container">
-								<div class="row">
-									
-                                    <iframe width="900" height="800" frameborder="0" scrolling="no" src="http://plot.ly/~qiweihan/475.embed"></iframe> -->
                                 </div>
                 </div>
 				

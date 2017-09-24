@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <link href="css/plots.css" rel="stylesheet" type="text/css" media="all"/>
+     <link href="css/flexslider.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/line-icons.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/elegant-icons.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/lightbox.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/theme.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/custom.css" rel="stylesheet" type="text/css" media="all"/>
+        <!--[if gte IE 9]>
+          <link rel="stylesheet" type="text/css" href="css/ie9.css" />
+    <![endif]-->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700%7CRaleway:700' rel='stylesheet' type='text/css'>
+         <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+  </head>
+  <body>
+    <p>
+A Call Detail Record is created whenever a phone call is placed or received from a mobile phone on a given provider’s network. These are also called circuit switching data, as within telecommunications engineering, placing or receiving a call involves a switch of an electronic circuit. These records contain:<br>
+● the   anonymized   user   identifier   for   the   customer,<br>
+● the   nationality   or   home   region   in   Italy   of   the   user’s   SIM   card,<br>
+● the   date   and   time   of   the   event,   and<br>
+● the   coordinates   of   the   tower   that   handled   the   call.<br>
+** <i>CDRs can potentially contain text message (SMS) data as well, although SMS records were not present in our data.</i></p>
+<p>
+In this project, we analyzed CDR data from the time period between June 1 to September 30 2016. The data contained records for foreign or Italian tourists, covering the span of their visit to the province of Florence as well as 3 days before and after their visit. The Collective Sensing organisation proceeded to removal of Florentine residents from the dataset prior to our analysis of the data, by filtering out people who consistently appeared in Florence during nighttimes over a given period of time. This process was done to protect the anonymity of residents, since call records are sensitive information. Even though the call records are anonymous, the ability to see the nightly travel patterns of users at night and during the day could, in theory, partially allow to identify individuals.</p>
+<p>
+  With the help of CS Research, we analyzed the anonymized call activity and behavior in Florence of Vodaphone users over the summer of 2016. The analyses show the number of presences in Florence over the summer of three categories of people: Italian visitors, foreigners, and residents. The values for presences are estimated from the dataset based on multiple factors, such as call behavior trends, local demographics, and cell phone carrier market share. Presence is defined as the number of unique people seen in Florence over 1 day independent of the duration of stay, rather than the number of people present at one point in time (which will be strictly less than the presences). Italian visitors are defined as persons who own SIM cards from Italy and whose home is outside of the city of Florence. Residents are defined as persons who live in the city of Florence. This distinction can be made by looking at the home region associated with the SIM card and from the calling patterns of the customer. Foreigners are defined as persons with foreign SIM cards visiting the city of Florence, with the nationality coming from the nationality of the SIM card. Note that foreigners who buy Italian SIM cards on arrival for use will appear in the data to be Italian.
+  </p>
+  </body>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="firenzePlots.js"></script>
+</html>

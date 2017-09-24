@@ -1,36 +1,29 @@
 <html>
   <head>
     <link href="css/plots.css" rel="stylesheet" type="text/css" media="all"/>
+     <link href="css/flexslider.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/line-icons.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/elegant-icons.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/lightbox.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/theme.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/custom.css" rel="stylesheet" type="text/css" media="all"/>
+        <!--[if gte IE 9]>
+          <link rel="stylesheet" type="text/css" href="css/ie9.css" />
+    <![endif]-->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700%7CRaleway:700' rel='stylesheet' type='text/css'>
+         <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
   </head>
   <body>
-    <div class="plot-page">
-      <div class="plot-wrapper">
-        <div class="plotly-div" id="state-national-vs-fc"></div>
-        <div class="plot-legend">
-          <strong>Figure 1.</strong> Comparison of monthly entries for Firenzecard data and state museum data. Firenzecard users only represent a small proportion of the total number of museum visitors over summer 2016.
-        </div>
-      </div>
-
-      <div class="plot-wrapper">
-        <div class="plotly-div" id="state-national-museums"></div>
-        <div class="plot-legend">
-          <strong>Figure 2.</strong> The average number of entries per month at state and national museums during the summer months of 2016.
-        </div>
-      </div>
-      <div class="plot-wrapper">
-        <div class="plotly-div" id="fc-total-entries-per-museum"></div>
-        <div class="plot-legend">
-          <strong>Figure 3.</strong> Total number of museum entries over summer 2016
-        </div>
-      </div>
-
-      <div class="plot-wrapper">
-        <div class="plotly-div" id="museums-visited-per-card"></div>
-        <div class="plot-legend">
-          <strong>Figure 3.</strong> Number of museums visited with the Firenzecard over summer 2016.
-        </div>
-      </div>
-    </div>
+    <p>
+  The Firenzecard is an electronic card  for facilitating visits to the cultural heritage sites of the city of Florence. Card holders are automatically provided with general admission, tickets for exhibitions, and priority access for every museum of the Firenzecard circuit with no reservations required. The card allows its users to visit 72 key tourist attractions and museums in Florence, and is active for a duration of 72 hours from the first use. EU Minors under 18 years of age are granted free admission on the cards of an accompanying adult family member.</p>
+  <p>
+The Firenzecard dataset used for this study consisted of attraction entry information of Firenzecard users during the time period of 1st June 2016 until 30th September 2016. This accounts for a totality of 51.031 cards. Since minors can enter along with adults on a Firenzecard, the number of cards and cardholders is not the same as the total number of people who enter on the card. There are a total of 58.411 people who entered museums with Firenzecards over the summer.</p>
+<p>
+A data entry log is created each time a person uses their Firenzecard to enter a museum or touristic attraction part of the circuit of 72 tourist attractions of the card. Each entry contains: an anonymized user identification number, the date and time of entry,a field detailing whether or not the entry was the first entry to be made on the card, the name of the tourist attraction visited, and the number of minors also entering on a card. The entry time for all minors entering on a single card is identical (i.e., a card   scan is not separately recorded for each entering minor).</p>
+<p>
+  Exploratory analysis of the Firenzecard dataset reveals the patterns of usage behaviour of all 51.031 Firenzecard holders during the time period of 1st June 2016 until 30th September 2016. The analysis is structured around the main key questions concerning this subpopulation of museum visitors.
+  </p>
   </body>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="firenzePlots.js"></script>

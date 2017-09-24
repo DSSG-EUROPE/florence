@@ -761,6 +761,7 @@ nav hr {
 header {
   position: relative;
   overflow: hidden;
+  background-color:#e74c3c;
 }
 header .container {
   position: relative;
