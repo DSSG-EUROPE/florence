@@ -16,6 +16,7 @@ dbcreds.py
 *.exe
 *.o
 *.so
+bundle.js
 
 # Packages #
 ############
