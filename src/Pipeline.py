@@ -32,10 +32,7 @@ def main():
 
     # ---------------------------------------
     # Firenze card Analysis (io)
-    # todo io finish adding calls to all EDA functions
     # ---------------------------------------
-
-    # todo function that calls plotly credentials?
 
     # connect to db get firenzecard_logs data and export to CSV
     firenzedata = get_firenze_data(db_connection, export_to_csv=True)
@@ -47,8 +44,6 @@ def main():
     df = extract_features(db_connection, path_firenzedata='../src/output/firenzedata_raw.csv',
                            path_firenzelocations_data='../src/output/firenzedata_locations.csv',
                            export_to_csv=True, export_path='../src/output/')
-
-    ### Firenze Card eda here
 
     # How many cards are there?
     print('How many Firenzecards are there?', len(df['user_id'].unique()))
@@ -149,17 +144,15 @@ def main():
 
     # Which museums are full, and which are rather empty, at different times of the day?
     # Are they located next to each other?
-    data, geomap_plot_url = plot_geomap_timeseries(df, df2_hour, date_to_plot='2016-07-10',
-                                                   plotname='map',
-                                                   mapbox_access_token='',
-                                                   min_timedelta=7,
-                                                   max_timedelta=23)
-    print('Geomap graph url: ', geomap_plot_url)
+#     data, geomap_plot_url = plot_geomap_timeseries(df, df2_hour, date_to_plot='2016-07-10',
+#                                                    plotname='map',
+#                                                    mapbox_access_token='',
+#                                                    min_timedelta=7,
+#                                                    max_timedelta=23)
+#     print('Geomap graph url: ', geomap_plot_url)
 
     # Which museums have inverse correlationns?
-    # todo IMPORTANT: see below
     # todo implement museum size (capacity) as a feature, and taking closure timesinto account in correlations
-
     lst = list(df.museum_id.unique())
     corr_matrix, high_corr, inverse_corr = get_correlation_matrix(df=df2_hour, lst=lst, corr_method='spearman',
                                                                   timedelta='hour', timedelta_subset=False,
