@@ -335,7 +335,6 @@ def get_timedelta_range(df, timedelta = 'hour', start_date='2016-06-01', end_dat
     """
 
     timedelta_options = ['day_of_week', 'hour', 'date']
-    # todo: breaks when looking at only one day
     df = df[df['date'].isin(pd.date_range(start_date, end_date))]
     timeunit = pd.DataFrame()
     timedelta_range = pd.DataFrame()
@@ -445,162 +444,6 @@ def plot_national_museum_entries(connection, export_to_csv=True, export_path='..
     plot_url = py.iplot(fig, filename='SM', sharing='private')
 
     return data, plot_url
-
-
-def geomplot_per_hour(df, df_timeseries, timedelta='hour', min_timedelta=7, max_timedelta=23,
-                      plotname='', mapbox_access_token=''):
-
-    dates_list = list(df['date'].unique())
-
-    plot_urls = {}
-
-    for date in dates_list[:]:
-
-        df2 = df[df['date'] == date]
-        df2 = df2[['museum_id', 'latitude', 'longitude', 'short_name']].drop_duplicates()
-        df2 = pd.merge(df2, df_timeseries, on=['museum_id'], how='inner')
-        df2 = df2[[timedelta, 'total_entries', 'latitude', 'longitude', 'short_name']]
-
-        df2['short_name'][df2.total_entries == 0] = float('nan')
-        df2['latitude'][df2.total_entries == 0] = float('nan')
-        df2['longitude'][df2.total_entries == 0] = float('nan')
-        df2.set_index('short_name', inplace=True)
-        df2['short_name'] = df2.index
-        df2['name_entries'] = df2['short_name'].astype(str) + ': ' + df2['total_entries'].astype(str)
-        df2 = df2[df2.hour >= min_timedelta]
-        df2 = df2[df2.hour <= max_timedelta]
-
-        data = []
-
-        for hour in list(df2[timedelta].unique()):
-            trace = dict(
-                lat=df2[df2[timedelta] == hour]['latitude'],
-                lon=df2[df2[timedelta] == hour]['longitude'],
-                name=hour,
-                mode='marker',
-                marker=dict(size=7),
-                text=df2[df2[timedelta] == hour]['name_entries'],
-                type='scattermapbox',
-                hoverinfo='text'
-            )
-
-            data.append(trace)
-
-        data = data
-
-        updatemenus = list([
-            dict(type="dropdown",
-                 active=0,
-                 buttons=list([
-                     dict(label=data[n].name,
-                          method='update',
-                          args=[{'visible': [args]},
-                                {'title': data[n].name + ': Number of Museum Entries per ' + timedelta}]),
-                 ]),
-                 direction='down',
-                 showactive=True,
-                 x=1,
-                 xanchor='top',
-                 y=1,
-                 yanchor='top'
-                 )
-        ])
-
-        layout = go.Layout(
-            showlegend=False,
-            autosize=False,
-            updatemenus=updatemenus,
-            width=900,
-            height=500,
-            paper_bgcolor='#ffffff',
-            plot_bgcolor='#ffffff',
-            barmode='group',
-        )
-
-        fig = dict(data=data, layout=layout)
-        plot_url = py.iplot(fig, filename=plotname, sharing='private')
-
-        # museums = list([
-        #     dict(
-        #         args=[{
-        #             'mapbox.center.lat': 43.768,
-        #             'mapbox.center.lon': 11.262,
-        #             'mapbox.zoom': 12,
-        #             'annotations[0].text': 'Museums in Florence'
-        #         }],
-        #         label='Florence',
-        #         method='relayout'
-        #     )
-        # ])
-        #
-        # m = df2[['latitude', 'longitude']].drop_duplicates()
-        # for museum, row in m.iterrows():
-        #     desc = []
-        #     for col in m.columns:
-        #         if col not in ['latitude', 'longitude']:
-        #             if str(row[col]) not in ['None', 'nan', '']:
-        #                 desc.append(col + ': ' + str(row[col]).strip("'"))
-        #     desc.insert(0, museum)
-        #     museums.append(
-        #         dict(
-        #             args=[{
-        #                 'mapbox.center.lat': row['latitude'],
-        #                 'mapbox.center.lon': float(str(row['longitude']).strip("'")),
-        #                 'mapbox.zoom': 14,
-        #             }],
-        #             label=museum,
-        #             method='relayout'
-        #         )
-        #     )
-        #
-        # updatemenus = list([
-        #     dict(
-        #         buttons=list([
-        #             dict(
-        #                 args=['mapbox.style', 'light'],
-        #                 label='Map',
-        #                 method='relayout'
-        #             ),
-        #             dict(
-        #                 args=['mapbox.style', 'satellite-streets'],
-        #                 label='Satellite',
-        #                 method='relayout'
-        #             )
-        #         ]),
-        #         direction='up',
-        #         x=0.75,
-        #         xanchor='left',
-        #         y=0.05,
-        #         yanchor='bottom',
-        #         bgcolor='#ffffff',
-        #         bordercolor='#000000',
-        #         font=dict(size=11)
-        #     ),
-        # ])
-        #
-        # layout = Layout(
-        #     showlegend=True,
-        #     autosize=False,
-        #     hovermode='closest',
-        #     mapbox=dict(
-        #         accesstoken=mapbox_access_token,
-        #         bearing=0,
-        #         center=dict(
-        #             lat=43.768,
-        #             lon=11.262
-        #         ),
-        #         pitch=0,
-        #         zoom=12
-        #     ),
-        # )
-        #
-        # layout['updatemenus'] = updatemenus
-        # fig = dict(data=data, layout=layout)
-        # plot_url = py.iplot(fig, filename=plotname, sharing='private', auto_open=False)
-        #
-        # plot_urls[date] = plot_url
-
-    return df2, plot_urls
 
 
 def plot_geomap_timeseries(df, df_timeseries, timedelta='hour', date_to_plot='2016-06-01', plotname='testing-mapbox',
@@ -1008,8 +851,7 @@ def plot_timeseries_button_plot(df, museum_list, timedelta='hour', plotname='tim
     #                            color='#CC171D',  # set bar colors
     #                        ))
     #
-    #         # 1) make list full of FALSE, size of museum_list
-    #         # 2) replace n with TRUE
+    #         # todo: fix!
     #         # args = [True, False, False, False, False, False, False, False, False, False, False,
     #         #                                      False, False, False, False, False, False, False, False, False, False, False,
     #         #                                      False, False, False, False, False, False, False, False, False, False, False,
