@@ -98,22 +98,21 @@ https://dssg.uchicago.edu/europe/
 **Project Manager**: Laura Szczuczak
 
 ### Acknowledgments
-We​ ​would​ ​like​ ​to​ ​acknowledge​ ​all​ ​of​ ​the​ ​hard​ ​work​ ​of​ ​our​ ​partners,​ ​data​ ​partners,​ ​and​ ​mentors. Thank​ ​you​ ​to​ ​Alberto​ ​Peruzzini​ ​and​ ​Laura​ ​Morelli​ ​at​ ​Toscana​ ​Promozione​ ​Turistica​ ​for​ ​introducing us​ ​to​ ​the​ ​problem,​ ​and​ ​for​ ​coordinating​ ​dataset​ ​collection.​ ​Additionally,​ ​many​ ​thanks​ ​to​ ​the following​ ​organizations​ ​for​ ​making​ ​the​ ​following​ ​data​ ​open​ ​and​ ​available​ ​to​ ​us:
 
-Vodafone​ ​Italy​ ​and​ ​the​ ​Collective​ ​Sensing​ ​(CS)​ ​Research​ ​Foundation​ ​for​ ​providing​ ​the Telecommunications​ ​data​ ​for​ ​Florence.
+We would like to acknowledge all of the hard work of our partners, data partners, and mentors. Thank you to Alberto Peruzzini and Laura Morelli at Toscana Promozione Turistica for introducing us to the problem, and for coordinating dataset collection. Additionally, many thanks to the following organizations for making the following data open and available to us:
 
-Comune​ ​di​ ​Firenze,​ ​Assesorato​ ​al​ ​Turismo​ ​e​ ​Direzione​ ​Cultura,​ ​for​ ​the​ ​detailed​ ​logs​ ​of​ ​Firenzecard visits.
+- Comune di Firenze, Assessorato al Turismo e Direzione Cultura.
+- Linea Comune S.p.A. for the detailed logs of Firenzecard visits.
+- The Ufficio di Statistica at Ministero dei Beni e delle Attività Culturali e del Turismo for the monthly aggregates of visitors to Florence State Museums. 
+- Centro Studi Turistici di Firenze for their analysis of tourism flows in Florence.
+- Toscana Aeroporti for the daily airport arrivals at the Florence airport.
+- Uffici informazioni turistiche della Città Metropolitana di Firenze and Uffici Informazioni Turistiche del Comune di Firenze for the tourism office data.
+- Servizi alla Strada S.p.A. for the tourism bus data.
+- Istituto Regionale Programmazione Economica Toscana for the data from cruise ship arrivals in the Port of Livorno and their studies of tourism in Tuscany.
+- Vodafone Italy and the Collective Sensing (CS) Research Foundation for providing and managing access to the Telecommunications data for Florence.
+- Nova School of Business and Economics for its leadership to make this project possible, and all the logistic and other support during the project execution.
+- Amazon Web Services for the Cloud for Research Credits.
 
-The​ ​Ufficio​ ​di​ ​Statistica​ ​at​ ​Ministero​ ​dei​ ​Beni​ ​e​ ​delle​ ​Attività​ ​Culturali​ ​e​ ​del​ ​Turismo​ ​for​ ​the​ ​monthly aggregates​ ​of​ ​visitors​ ​to​ ​Florence​ ​State​ ​Museums.
-
-Centro​ ​Studi​ ​Turistici​ ​di​ ​Firenze​ ​for​ ​their​ ​analysis​ ​of​ ​tourism​ ​flows​ ​in​ ​Florence. Toscana​ ​Aeroporti​ ​for​ ​the​ ​daily​ ​airport​ ​arrivals​ ​at​ ​the​ ​Florence​ ​airport.
-
-Uffici​ ​informazioni​ ​turistiche​ ​della​ ​Città​ ​Metropolitana​ ​di​ ​Firenze​ ​and​ ​Uffici​ ​Informazioni​ ​Turistiche del​ ​Comune​ ​di​ ​Firenze​ ​for​ ​the​ ​tourism​ ​office​ ​data.
-
-Servizi​ ​alla​ ​Strada​ ​S.p.A.​ ​for​ ​the​ ​tourism​ ​bus​ ​data.
-
-Istituto​ ​Regionale​ ​Programmazione​ ​Economica​ ​Toscana​ ​for​ ​the​ ​data​ ​from​ ​cruise​ ​ship​ ​arrivals​ ​in​ ​the
-Port​ ​of​ ​Livorno​ ​and​ ​their​ ​studies​ ​of​ ​tourism​ ​in​ ​Tuscany.
 
 *All​ ​analysis​ ​and​ ​opinions​ ​contained​ ​here​ ​are​ ​the​ ​authors’​ ​own,​ ​and​ ​are​ ​not​ ​necessarily​ ​held​ ​or
 endorsed​ ​by​ ​any​ ​of​ ​the​ ​partners​ ​or​ ​data-providing​ ​agencies.*
