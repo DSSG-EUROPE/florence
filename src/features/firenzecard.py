@@ -1,40 +1,42 @@
+
+# =============================================================================
+#          File: firenzecard.py
+#        Author: Io Flament
+#       Created: July 2017
+# Last Modified: October 2017
+#   Description: Runs Exploratory Analysis of Firenzecard data
+# =============================================================================
+
 import sys
 import pandas as pd
 import numpy as np
 import plotly
-from plotly.graph_objs import *  
+from plotly.graph_objs import *
 import plotly.plotly as py
 import plotly.graph_objs as go
 sys.path.append('../src/')
-from IPython.core.debugger import Tracer
+#from IPython.core.debugger import Tracer
 
-# todo: make yaml with credentials for plotly and mapbox
-plotly.tools.set_credentials_file(username='', api_key='')
+import yaml
+with open("config.yml", 'r') as ymlfile:
+    cfg = yaml.load(ymlfile)
 
-def get_national_museums(connection, export_to_csv=True, export_path='../src/output/'):
+
+def get_national_museums(connection, export_to_csv, export_path):
 
     """
-
-    Parameters
-    ----------
-    :param connection: postgres connection
-    :param export_to_csv: boolean
-    :param export_path: str
-
-    Returns
-    -------
-    :return df: dataframe
+    Get national museum data from DB
     """
 
     df = pd.read_sql('select * from optourism.state_national_museum_visits', con=connection)
 
     if export_to_csv:
-        df.to_csv(export_path + 'nationalmuseums_raw.csv', index=False)
+        df.to_csv(f"{export_path}_nationalmuseums_raw.csv", index=False)
 
     return df
 
 
-def get_firenze_data(connection, export_to_csv=True, export_path='../src/output/'):
+def get_firenze_data(connection, export_to_csv, export_path):
 
     """
     Get FirenzeCard logs from DB
@@ -43,46 +45,43 @@ def get_firenze_data(connection, export_to_csv=True, export_path='../src/output/
     df = pd.read_sql('select * from optourism.firenze_card_logs', con=connection)
 
     if export_to_csv:
-        df.to_csv(export_path + 'firenzedata_raw.csv', index=False)
+        df.to_csv(f"{export_path}_firenzedata_raw.csv", index=False)
 
     return df
 
 
-def get_firenze_locations(connection, export_to_csv=True, export_path='../src/output/'):
+def get_firenze_locations(connection, export_to_csv, export_path):
 
     """
-    Get latitude and logitude fields from DB
+    Get latitude and longitude fields from DB
     """
 
     df = pd.read_sql('select * from optourism.firenze_card_locations', con=connection)
 
     if export_to_csv:
-        df.to_csv(export_path + 'firenzedata_locations.csv', index=False)
+        df.to_csv(f"{export_path}_firenzedata_locations.csv", index=False)
 
     return df
 
 
-def extract_features(connection, path_firenzedata='../src/output/firenzedata_raw.csv',
-                     path_firenzelocations_data='../src/output/firenzedata_locations.csv',
-                     export_to_csv=True, export_path='../src/output/'):
-    """
+def extract_features(connection, path_firenzedata, path_firenzelocations_data, export_to_csv, export_path):
 
-    Extract Features from Firenze Card raw data
+    """
+    Feature extraction for FirenzeCard data
 
     Parameters
     ----------
-    :param connection: postgres connection
-    :param path_firenzedata: str
-    :param path_firenzelocations_data: str
-    :param export_to_csv: boolean
-    :param export_path: str
+    connection: postgres connection
+    path_firenzedata: path to firenze logs data csv file
+    path_firenzelocations_data: path to firenzelocations data csv file
+    export_to_csv: boolean
+    export_path: path to export data
 
     Returns
     -------
-    :return df: dataframe
 
      1. Pandas dataframe with extracted features:
-             - entry_is_adult: is the user an adult or not?
+              - entry_is_adult: is the user an adult or not?
               - is_card_with_minors: is this a card used by minors?
               - time: time
               - date: date
@@ -142,15 +141,13 @@ def extract_features(connection, path_firenzedata='../src/output/firenzedata_raw
         df['is_in_museum_' + str(n)] = np.where(df['museum_id'] == n, 1, 0)
 
     if export_to_csv:
-        df.to_csv(export_path + 'firenzedata_feature_extracted.csv', index=False)
+        df.to_csv(f"{export_path}_firenzedata_feature_extracted.csv", index=False)
 
     return df
 
 
-def interpolate_on_timedelta(df, groupby_object='museum_id',
-                             timedelta='day_of_week', timedelta_range=7,
-                             count_column='entrances_per_card_per_museum',
-                             timeunit='D', start_date='2016-06-01', end_date='2016-09-30'):
+def interpolate_on_timedelta(df, groupby_object,timedelta, timedelta_range=,
+                             count_column,timeunit, start_date, end_date):
     """
     Interpolate data on a given timedelta
     """
@@ -180,26 +177,13 @@ def interpolate_on_timedelta(df, groupby_object='museum_id',
     return df_interpolated
 
 
-def get_museum_entries_per_timedelta_and_plot(df, museum_list, timedelta='date',
-                                              start_date='2016-06-01', end_date='2016-09-30',
-                                              plot=True, export_to_csv=True, export_path='../src/output/'):
+def get_museum_entries_per_timedelta_and_plot(df, museum_list, me_names, me_timedelta, start_date, end_date, plot,
+                                              export_to_csv, export_path):
     """
     Get museum timeseries for a given timedelta and plot
     """
 
-    timedelta_range, timeunit = get_timedelta_range(df, timedelta, start_date, end_date)
-
-    mnames = ['Santa Croce', 'Opera del Duomo', 'Uffizi', 'Accademia',
-              'M. Casa Dante', 'M. Palazzo Vecchio', 'M. Galileo', 'M. Bargello',
-              'San Lorenzo', 'M. Archeologico', 'Pitti', 'Cappelle Medicee',
-              'M. Santa Maria Novella', 'M. San Marco', 'Laurenziana',
-              'M. Innocenti', 'Palazzo Strozzi', 'Palazzo Medici',
-              'Torre di Palazzo Vecchio', 'Brancacci', 'M. Opificio',
-              'La Specola', 'Orto Botanico', 'V. Bardini', 'M. Stefano Bardini',
-              'M. Antropologia', 'M. Ebraico', 'M. Marini', 'Casa Buonarroti',
-              'M. Horne', 'M. Ferragamo', 'M. Novecento', 'M. Palazzo Davanzati',
-              'M. Geologia', 'M. Civici Fiesole', 'M. Stibbert', 'M. Mineralogia',
-              'M. Preistoria', 'M. Calcio', 'Primo Conti', 'All Museums']
+    timedelta_range, timeunit = get_timedelta_range(df, me_timedelta, start_date, end_date)
 
     museum_dfs = {}
     plot_urls = {}
@@ -208,18 +192,19 @@ def get_museum_entries_per_timedelta_and_plot(df, museum_list, timedelta='date',
 
     for museum_name in museum_list[:]:
 
-        if museum_name not in mnames:
+        if museum_name not in me_names:
             print('Wrong museum name! Please enter one of the following museums:')
-            print(mnames)
+            print(me_names)
 
         if museum_name != 'All Museums':
             df2 = df[df['short_name'].str.contains(museum_name)]
         else:
             df2 = df
 
-        df2 = df2.groupby(['museum_id', 'short_name', timedelta], as_index=False)['entrances_per_card_per_museum'].sum()
+        df2 = df2.groupby(['museum_id', 'short_name', me_timedelta], as_index=False)
+        ['entrances_per_card_per_museum'].sum()
         df_interpolated = interpolate_on_timedelta(df2, groupby_object='museum_id',
-                                                   timedelta=timedelta,
+                                                   timedelta=me_timedelta,
                                                    timedelta_range=timedelta_range,
                                                    count_column='entrances_per_card_per_museum',
                                                    timeunit=timeunit)
@@ -228,20 +213,20 @@ def get_museum_entries_per_timedelta_and_plot(df, museum_list, timedelta='date',
         df_interpolated['total_entries'] = df_interpolated['total_entries'].fillna(0)
 
         if export_to_csv:
-            df_interpolated.to_csv(export_path + 'total_entries_' + museum_name + '_per' + timedelta + '_.csv',
+            df_interpolated.to_csv(f"{export_path} total_entries_{museum_name}_per_{me_timedelta}_.csv",
                                    index=False)
 
-        df_interpolated = df_interpolated.groupby([timedelta, 'museum_id'], as_index=False)['total_entries'].sum()
+        df_interpolated = df_interpolated.groupby([me_timedelta, 'museum_id'], as_index=False)['total_entries'].sum()
 
         if plot:
             trace1 = go.Bar(
-                x=df_interpolated[timedelta],
+                x=df_interpolated[me_timedelta],
                 y=df_interpolated['total_entries'])
             data = [trace1]
             layout = go.Layout(
                 title=museum_name,
                 xaxis=dict(
-                    title=timedelta,
+                    title=me_timedelta,
                     titlefont=dict(family='Courier New, monospace', size=18, color='#7f7f7f')),
                 # rangeselector=dict(),
                 # rangeslider=dict(),
@@ -252,8 +237,8 @@ def get_museum_entries_per_timedelta_and_plot(df, museum_list, timedelta='date',
             )
 
             fig = dict(data=data, layout=layout)
-            plot_url = py.plot(fig, filename=museum_name + timedelta + start_date + end_date, sharing='private',
-                               auto_open=False)
+            plot_url = py.plot(fig, filename=f"{museum_name}_{me_timedelta}_{start_date}_{end_date}",
+                               sharing='private',auto_open=False)
 
             plot_urls[museum_name] = plot_url
 
@@ -262,10 +247,10 @@ def get_museum_entries_per_timedelta_and_plot(df, museum_list, timedelta='date',
     return museum_dfs, plot_urls
 
 
-def get_timedelta_range(df, timedelta = 'hour', start_date='2016-06-01', end_date='2016-09-30'):
+def get_timedelta_range(df, tdr_timedelta, start_date, end_date):
 
     """
-    Get timedelta range and unit for generating museum timseries (called by get_museum_entries_per_timedelta_and_plot)
+    Get timedelta range and unit for generating museum timeseries (called by get_museum_entries_per_timedelta_and_plot)
     """
 
     timedelta_options = ['day_of_week', 'hour', 'date']
@@ -273,20 +258,20 @@ def get_timedelta_range(df, timedelta = 'hour', start_date='2016-06-01', end_dat
     timeunit = pd.DataFrame()
     timedelta_range = pd.DataFrame()
 
-    if timedelta not in timedelta_options:
+    if tdr_timedelta not in timedelta_options:
         print("Wrong timedelta!")
-        timedelta = input("Input a timedelta: 'hour', 'day_of_week' or 'date' ")
-        timeunit, timedelta_range = get_timedelta_range(df, timedelta, start_date, end_date)
+        tdr_timedelta = input("Input a timedelta: 'hour', 'day_of_week' or 'date' ")
+        timeunit, timedelta_range = get_timedelta_range(df, tdr_timedelta, start_date, end_date)
 
-    if timedelta == 'day_of_week':
+    if tdr_timedelta == 'day_of_week':
         timedelta_range = 7
         timeunit = []
 
-    if timedelta == 'hour':
+    if tdr_timedelta == 'hour':
         timedelta_range = 24
         timeunit = []
 
-    if timedelta == 'date':
+    if tdr_timedelta == 'date':
         delta = pd.to_datetime(end_date) - pd.to_datetime(start_date)
         timedelta_range = delta.days
         timeunit = 'D'
@@ -294,23 +279,19 @@ def get_timedelta_range(df, timedelta = 'hour', start_date='2016-06-01', end_dat
     return timedelta_range, timeunit
 
 
-def get_correlation_matrix(df, lst, corr_method='kendall', timedelta='date', timedelta_subset=True,
-                           timedeltamin=0, timedeltamax=6,
-                           below_threshold=-0.7, above_threshold=0.7, export_to_csv=True,
-                           export_path='../src/output/'):
+def get_correlation_matrix(df, lst, corr_method, cm_timedelta, timedelta_subset, timedeltamin, timedeltamax,
+                           below_threshold, above_threshold, export_to_csv, export_path):
     """
     Get correlation matrix of museum correlations and inverse correlations, for a given timedelta, at given thresholds
     """
 
     if timedelta_subset:
-        df = df[df[timedelta] >= timedeltamin]
-        df = df[df[timedelta] <= timedeltamax]
+        df = df[(df[cm_timedelta] >= timedeltamin) & (df[cm_timedelta] <= timedeltamax)]
 
-    df = df.pivot(index=timedelta, columns='museum_id', values='total_entries')
+    df = df.pivot(index=cm_timedelta, columns='museum_id', values='total_entries')
     m = df.corr(method=corr_method).stack()
     corr_matrix = m[m.index.get_level_values(0) != m.index.get_level_values(1)]
 
-    # todo remove redundancy by filtering on absolute threshold instead of negative / positive
     high = pd.DataFrame(corr_matrix[corr_matrix > above_threshold])
     inverse = pd.DataFrame(corr_matrix[corr_matrix < below_threshold])
 
@@ -335,12 +316,12 @@ def get_correlation_matrix(df, lst, corr_method='kendall', timedelta='date', tim
     inverse_corr = inverse_corr[mask2]
 
     if export_to_csv:
-        corr_matrix.to_csv(export_path + 'correlated_museums_' + timedelta + '_.csv', index=False)
+        corr_matrix.to_csv(f"{export_path}_correlated_museums_{cm_timedelta}_.csv", index=False)
 
     return m, high_corr, inverse_corr
 
 
-def plot_national_museum_entries(connection, export_to_csv=True, export_path='../src/output/'):
+def plot_national_museum_entries(connection, export_to_csv, export_path, plotname):
 
     """
     Plot National Museum Entries
@@ -358,13 +339,13 @@ def plot_national_museum_entries(connection, export_to_csv=True, export_path='..
     )
 
     fig = go.Figure(data=go.Data([trace1]))
-    plot_url = py.iplot(fig, filename='SM', sharing='private')
+    plot_url = py.iplot(fig, filename=plotname, sharing='private')
 
     return data, plot_url
 
 
-def plot_geomap_timeseries(df, df_timeseries, timedelta='hour', date_to_plot='2016-06-01', plotname='testing-mapbox',
-                           mapbox_access_token='', min_timedelta=7, max_timedelta=23):
+def plot_geomap_timeseries(df, df_timeseries, timedelta, date_to_plot, plotname, mapbox_access_token, min_timedelta,
+                           max_timedelta):
 
     """
     Plot geographical mapbox of timeseries data, for a given day
@@ -480,7 +461,7 @@ def plot_geomap_timeseries(df, df_timeseries, timedelta='hour', date_to_plot='20
     return df2, plot_url
 
 
-def plot_fc_and_statemuseum_monthly_timeseries(df_date, connection, plotname='monthly_fc_statemuseums'):
+def plot_fc_and_statemuseum_monthly_timeseries(df_date, connection, plotname):
 
     """
     Plot Firenzecard and State Museum monthly aggregate timeseries.
@@ -531,7 +512,7 @@ def plot_fc_and_statemuseum_monthly_timeseries(df_date, connection, plotname='mo
     return df2, plot_url
 
 
-def get_timelines_of_usage(df_hour, df_date, df_dow, hour_min = 7, hour_max = 23):
+def get_timelines_of_usage(df_hour, df_date, df_dow, hour_min, hour_max):
 
     """
     Get timelines of usage of Firenzecard data.
@@ -570,16 +551,15 @@ def plot_museum_aggregate_entries(df, plotname='museum-popularity'):
     return df2, plot_url
 
 
-def plot_museums_visited_per_card(df, plotname1='Number-museums-per-card'):
+def plot_museums_visited_per_card(df, plotname):
 
     """
-    Plot museums visited per card.
+    Plot frequency plot of number of unique museums visited per card
     """
 
-    # How many unique museums do card users visit?
     df2 = df[['user_id', 'entry_is_adult', 'museum_id', 'date']]
     df2 = df2.groupby(['user_id'], as_index=True).museum_id.nunique().rename('total_museums_per_card').to_frame()
-    # Frequency plot of number of unique museums visited per card
+
     trace1 = go.Histogram(x=df2.total_museums_per_card, xbins=dict(start=np.min(df2.total_museums_per_card) - 0.25,
                                                                    size=0.5,
                                                                    end=np.max(df2.total_museums_per_card)),
@@ -601,18 +581,15 @@ def plot_museums_visited_per_card(df, plotname1='Number-museums-per-card'):
     )
 
     fig = go.Figure(data=go.Data([trace1]), layout=layout)
-    plot_url1 = py.iplot(fig, filename=plotname1, sharing='private', auto_open=False)
+    plot_url1 = py.iplot(fig, filename=plotname, sharing='private', auto_open=False)
 
     return df2, plot_url1
 
 
-def plot_day_of_activation(df, plotname='day-of-activation'):
+def plot_day_of_activation(df, plotname):
 
     """
     Plots Aggregate of Day of Activation.
-
-    For each entry where column 'adult_first_use' is True, get the day of card activation.
-    Count the number of different activation days and return as bar plot.
     """
 
     # todo sort order in logical day order
@@ -627,7 +604,6 @@ def plot_day_of_activation(df, plotname='day-of-activation'):
     df2 = df2.groupby('user_id', as_index=False).mean()['day_of_week'].map(dotw).to_frame()
     df2 = df2['day_of_week'].value_counts().to_frame()
 
-    # Frequency plot of number of unique museums visited per card
     # todo fix the X axis labeling so it's not hardcoded!
     trace = go.Bar(x=['Tuesday', 'Wednesday', 'Friday', 'Thursday', 'Satuday', 'Sunday', 'Monday'],
                    y=df2.day_of_week,
@@ -649,64 +625,4 @@ def plot_day_of_activation(df, plotname='day-of-activation'):
     plot_url = py.iplot(fig, filename=plotname, sharing='private', auto_open=False)
 
     return df2, plot_url
-
-
-# todo: fix plot_timeseries_button_plot module
-# def plot_timeseries_button_plot(df, museum_list, timedelta='hour', plotname='timeseries'):
-
-#     """
-#     Plots button plot of timeseries for a given timedelta
-#     """
-
-#     dates = df.date.unique()
-
-#     dataPanda = []
-
-#     # for n in range(1, len(museum_list)):
-#     #     for museum in museum_list:
-#     #         trace = go.Bar(x=df[museum][timedelta],
-#     #                        y=df[museum].total_entries,
-#     #                        name=museum,
-#     #                        visible=True,
-#     #                        marker=Marker(
-#     #                            color='#CC171D',  # set bar colors
-#     #                        ))
-#     #
-#     #         
-#     #         # args = [True, False, False, False, False, False, False, False, False, False, False,
-#     #         #                                      False, False, False, False, False, False, False, False, False, False, False,
-#     #         #                                      False, False, False, False, False, False, False, False, False, False, False,
-#     #         #                                      False, False, False, False, False, False, False, False]
-
-
-#     data = dataPanda
-
-#     updatemenus = list([
-#         dict(type="dropdown",
-#              active=0,
-#              buttons=list([menusdict]),
-#              direction='down',
-#              showactive=True,
-#              x=1,
-#              xanchor='top',
-#              y=1,
-#              yanchor='top'
-#              )
-#     ])
-
-#     layout = go.Layout(
-#         showlegend=False,
-#         autosize=False,
-#         updatemenus=updatemenus,
-#         width=900,
-#         height=500,
-#         paper_bgcolor='#ffffff',
-#         plot_bgcolor='#ffffff',
-#         barmode='group',
-#     )
-
-#     fig = dict(data=data, layout=layout)
-#     plot_url = py.iplot(fig, filename=plotname, sharing='private')
-
-#     return df, plot_url
 

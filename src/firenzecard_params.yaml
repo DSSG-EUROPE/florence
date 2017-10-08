@@ -1,0 +1,71 @@
+
+# todo: make yaml with credentials for plotly and mapbox
+#plotly.tools.set_credentials_file(username='', api_key='')
+
+# common params to all Firenzecard analysis functions
+export_path: '../src/output/'
+export_to_csv: True
+path_firenzedata: '../src/output/firenzedata_raw.csv'
+path_firenzelocations_data: '../src/output/firenzedata_locations.csv'
+start_date: '2016-06-01'
+end_date: '2016-09-30'
+
+# museum entries params
+# me_names, me_timedelta, me_start_date, me_end_date, plot, export_to_csv, export_path
+me_timedelta: 'date'
+me_names: ['Santa Croce', 'Opera del Duomo', 'Uffizi', 'Accademia',
+         'M. Casa Dante', 'M. Palazzo Vecchio', 'M. Galileo', 'M. Bargello',
+         'San Lorenzo', 'M. Archeologico', 'Pitti', 'Cappelle Medicee',
+         'M. Santa Maria Novella', 'M. San Marco', 'Laurenziana',
+         'M. Innocenti', 'Palazzo Strozzi', 'Palazzo Medici',
+         'Torre di Palazzo Vecchio', 'Brancacci', 'M. Opificio',
+         'La Specola', 'Orto Botanico', 'V. Bardini', 'M. Stefano Bardini',
+         'M. Antropologia', 'M. Ebraico', 'M. Marini', 'Casa Buonarroti',
+         'M. Horne', 'M. Ferragamo', 'M. Novecento', 'M. Palazzo Davanzati',
+         'M. Geologia', 'M. Civici Fiesole', 'M. Stibbert', 'M. Mineralogia',
+         'M. Preistoria', 'M. Calcio', 'Primo Conti', 'All Museums']
+
+# get timedeltarange params
+tdr_timedelta: 'hour'
+
+# correlation matrix params
+corr_method: 'kendall'
+cm_timedelta: 'date'
+timedelta_subset: True
+timedeltamin: 0
+timedeltamax: 6
+below_threshold: -0.7
+above_threshold: 0.7
+
+# interpolate on timedelta
+groupby_object: 'museum_id'
+timedelta: 'day_of_week'
+timedelta_range: 7
+count_column: 'entrances_per_card_per_museum'
+timeunit: 'D'
+start_date: '2016-06-01'
+end_date: '2016-09-30'
+
+# national museum entries
+plotname: national_museum_entries
+
+# fc and state museum monthly timeseries
+plotname: 'monthly_fc_statemuseums'
+
+# timelines of usage params
+hour_min: 7
+hour_max: 23
+
+# geomap timeseries params
+timedelta: 'hour'
+date_to_plot: '2016-06-01'
+plotname: 'testing-mapbox'
+mapbox_access_token: ''
+min_timedelta: 7
+max_timedelta: 23
+
+# day of activation params
+plotname: 'day-of-activation'
+
+# museums_visited_per_card params
+plotname: 'Number-museums-per-card'

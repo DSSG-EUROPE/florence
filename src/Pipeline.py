@@ -1,13 +1,3 @@
-"""
-Connect to Optourism server
-Navigate to notebook (optourism-repo/pipeline/Pipeline.ipynb)
-> source activate SpatialEnv2.7
-> pip install ipython-sql
-> pip install bqplot
-> jupyter nbextension enable --py --sys-prefix bqplot
-> jupyter notebook --port 8897 --no-browser
-
-"""
 
 def main():
 
@@ -34,6 +24,8 @@ def main():
     # Firenze card Analysis (io)
     # ---------------------------------------
 
+    # todo import yaml with plotly and mapbox cdredentials
+    
     # connect to db get firenzecard_logs data and export to CSV
     firenzedata = get_firenze_data(db_connection, export_to_csv=True)
 
@@ -166,9 +158,8 @@ def main():
 
     # ---------------------------------------
     # Network Analysis (Momin)
-    # todo Momin add calls to your CDR functions so that CDR plots and analyses are generated.
+    # todo Momin add calls to your network analysis functions so that plots and analyses are generated.
     # ---------------------------------------
-    test = network_analysis()
 
     # ---------------------------------------
 
