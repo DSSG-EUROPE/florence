@@ -106,6 +106,7 @@ https://dssg.uchicago.edu/europe/
 
 We would like to acknowledge all of the hard work of our partners, data partners, and mentors. Thank you to Alberto Peruzzini and Laura Morelli at Toscana Promozione Turistica for introducing us to the problem, and for coordinating dataset collection. Additionally, many thanks to the following organizations for making the following data open and available to us:
 
+
 - Comune di Firenze, Assessorato al Turismo e Direzione Cultura.
 - Linea Comune S.p.A. for the detailed logs of Firenzecard visits.
 - The Ufficio di Statistica at Ministero dei Beni e delle Attività Culturali e del Turismo for the monthly aggregates of visitors to Florence State Museums. 

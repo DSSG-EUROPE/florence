@@ -2,14 +2,14 @@ import sys
 import pandas as pd
 import numpy as np
 import plotly
-from plotly.graph_objs import *  # todo remove redundant imports
+from plotly.graph_objs import *  
 import plotly.plotly as py
 import plotly.graph_objs as go
 sys.path.append('../src/')
 from IPython.core.debugger import Tracer
 
-plotly.tools.set_credentials_file(username='qiweihan', api_key='wpJEW5CT1PDSGK8voBXc')
-
+# todo: make yaml with credentials for plotly and mapbox
+plotly.tools.set_credentials_file(username='', api_key='')
 
 def get_national_museums(connection, export_to_csv=True, export_path='../src/output/'):
 
@@ -37,16 +37,7 @@ def get_national_museums(connection, export_to_csv=True, export_path='../src/out
 def get_firenze_data(connection, export_to_csv=True, export_path='../src/output/'):
 
     """
-
-    Parameters
-    ----------
-    :param connection: postgres connection
-    :param export_to_csv: boolean
-    :param export_path: str
-
-    Returns
-    -------
-    :return df: dataframe
+    Get FirenzeCard logs from DB
     """
 
     df = pd.read_sql('select * from optourism.firenze_card_logs', con=connection)
@@ -60,16 +51,7 @@ def get_firenze_data(connection, export_to_csv=True, export_path='../src/output/
 def get_firenze_locations(connection, export_to_csv=True, export_path='../src/output/'):
 
     """
-
-    Parameters
-    ----------
-    :param connection: postgres connection
-    :param export_to_csv: boolean
-    :param export_path: str
-
-    Returns
-    -------
-    :return df: dataframe
+    Get latitude and logitude fields from DB
     """
 
     df = pd.read_sql('select * from optourism.firenze_card_locations', con=connection)
@@ -170,24 +152,7 @@ def interpolate_on_timedelta(df, groupby_object='museum_id',
                              count_column='entrances_per_card_per_museum',
                              timeunit='D', start_date='2016-06-01', end_date='2016-09-30'):
     """
-
     Interpolate data on a given timedelta
-
-    Parameters
-    ----------
-    :param df: dataframe
-    :param groupby_object: str
-    :param timedelta: str
-    :param timedelta_range: int
-    :param count_column: str
-    :param timeunit: str
-    :param start_date: str
-    :param end_date: str
-
-    Returns
-    -------
-    :return df_interpolated: dataframe
-
     """
 
     df_interpolated = pd.DataFrame()
@@ -219,25 +184,7 @@ def get_museum_entries_per_timedelta_and_plot(df, museum_list, timedelta='date',
                                               start_date='2016-06-01', end_date='2016-09-30',
                                               plot=True, export_to_csv=True, export_path='../src/output/'):
     """
-
     Get museum timeseries for a given timedelta and plot
-
-    Parameters
-    ----------
-    :param df: dataframe
-    :param museum_list: list
-    :param timedelta: str
-    :param start_date: str
-    :param end_date: str
-    :param plot: boolean
-    :param export_to_csv: boolean
-    :param export_path: str
-
-    Returns
-    -------
-    :return museum_dfs: dataframe
-    :return plot_urls: dict
-
     """
 
     timedelta_range, timeunit = get_timedelta_range(df, timedelta, start_date, end_date)
@@ -318,20 +265,7 @@ def get_museum_entries_per_timedelta_and_plot(df, museum_list, timedelta='date',
 def get_timedelta_range(df, timedelta = 'hour', start_date='2016-06-01', end_date='2016-09-30'):
 
     """
-
-    Gets timedelta range and unit for generating museum timseries (called by get_museum_entries_per_timedelta_and_plot)
-
-    Parameters
-    ----------
-    :param df: dataframe
-    :param timedelta: str
-    :param start_date: str
-    :param end_date: str
-
-    Returns
-    -------
-    :return timedelta_range: str
-    :return timeunit: str
+    Get timedelta range and unit for generating museum timseries (called by get_museum_entries_per_timedelta_and_plot)
     """
 
     timedelta_options = ['day_of_week', 'hour', 'date']
@@ -365,28 +299,7 @@ def get_correlation_matrix(df, lst, corr_method='kendall', timedelta='date', tim
                            below_threshold=-0.7, above_threshold=0.7, export_to_csv=True,
                            export_path='../src/output/'):
     """
-
     Get correlation matrix of museum correlations and inverse correlations, for a given timedelta, at given thresholds
-
-    Parameters
-    ----------
-    :param df: dataframe
-    :param lst: list
-    :param corr_method: str
-    :param timedelta: str
-    :param timedelta_subset: boolean
-    :param timedeltamin: int
-    :param timedeltamax: int
-    :param below_threshold: int
-    :param above_threshold: int
-    :param export_to_csv: boolean
-    :param export_path: str
-
-    Returns
-    -------
-    :return m: dataframe
-    :return high_corr: dataframe
-    :return inverse_corr: dataframe
     """
 
     if timedelta_subset:
@@ -429,6 +342,10 @@ def get_correlation_matrix(df, lst, corr_method='kendall', timedelta='date', tim
 
 def plot_national_museum_entries(connection, export_to_csv=True, export_path='../src/output/'):
 
+    """
+    Plot National Museum Entries
+    """
+    
     data = get_national_museums(connection, export_to_csv=export_to_csv, export_path=export_path)
     data = data[data['visit_month'].isin(['June', 'July', 'August', 'September'])]
     data = data.sort_values(['visit_month'], ascending=True)
@@ -450,24 +367,7 @@ def plot_geomap_timeseries(df, df_timeseries, timedelta='hour', date_to_plot='20
                            mapbox_access_token='', min_timedelta=7, max_timedelta=23):
 
     """
-
     Plot geographical mapbox of timeseries data, for a given day
-
-    Parameters
-    ----------
-    :param df: dataframe
-    :param df_timeseries: dataframe
-    :param timedelta: str
-    :param date_to_plot: str
-    :param plotname: str
-    :param mapbox_access_token: str
-    :param min_timedelta: int
-    :param max_timedelta: int
-
-    Returns
-    -------
-    :return df2: dataframe
-    :return plot_url: dict
     """
 
     df = df[df['date'] == date_to_plot]
@@ -583,20 +483,7 @@ def plot_geomap_timeseries(df, df_timeseries, timedelta='hour', date_to_plot='20
 def plot_fc_and_statemuseum_monthly_timeseries(df_date, connection, plotname='monthly_fc_statemuseums'):
 
     """
-
-    Plots Firenzecard and State Museum monthly aggregate timeseries.
-
-    Parameters
-    ----------
-    :param df_date: dataframe
-    :param connection: postgres connection
-    :param plotname: str
-
-    Returns
-    -------
-    :return df2: dataframe
-    :return plot_url: dict
-
+    Plot Firenzecard and State Museum monthly aggregate timeseries.
     """
 
     # Histogram of Monthly total museum entry data for Firenze Card and National State Museums
@@ -647,36 +534,17 @@ def plot_fc_and_statemuseum_monthly_timeseries(df_date, connection, plotname='mo
 def get_timelines_of_usage(df_hour, df_date, df_dow, hour_min = 7, hour_max = 23):
 
     """
-
     Get timelines of usage of Firenzecard data.
-
-    Parameters
-    ----------
-
-    :param df_hour: dataframe
-    :param df_date: dataframe
-    :param df_dow: dataframe
-
-    Returns
-    -------
-    :return df2_hour: dataframe
-    :return df2_dow: dataframe
-    :return df2_date: dataframe
-
     """
 
+    # todo: clean this 
     df_hour = df_hour[df_hour['hour'] >= hour_min]
     df_hour = df_hour[df_hour['hour'] <= hour_max]
 
-    # How many users are there per day on average across all museums, over the entire summer?
+    # How many users are there per day / hour / day-of-week on average across all museums, over the entire summer?
     df2_date = df_date.groupby('date', as_index=False)['total_entries'].mean()
-
-    # How many users are there per hour on average across all museums, over the entire summer?
     df2_hour = df_hour.groupby('hour', as_index=False)['total_entries'].mean()
-
-    # How many users are there per day-of-week on average across all museums, over the entire summer?
     df2_dow = df_dow.groupby('day_of_week', as_index=False)['total_entries'].mean()
-
 
     return df2_hour, df2_dow, df2_date
 
@@ -684,22 +552,9 @@ def get_timelines_of_usage(df_hour, df_date, df_dow, hour_min = 7, hour_max = 23
 def plot_museum_aggregate_entries(df, plotname='museum-popularity'):
 
     """
-
     Plot total museum entries over entrie summer 2016, for each museum.
-
-    Parameters
-    ----------
-    :param df: dataframe
-    :param plotname: str
-
-    Returns
-    -------
-    :return df2: dataframe
-    :return plot_url: dict
-
     """
 
-    # Which museums are most popular?
     df2 = df.groupby('short_name', as_index=True).sum()['total_people'].to_frame()
     df2.sort_values('total_people', inplace=True, ascending=True)
 
@@ -718,19 +573,7 @@ def plot_museum_aggregate_entries(df, plotname='museum-popularity'):
 def plot_museums_visited_per_card(df, plotname1='Number-museums-per-card'):
 
     """
-
-    Plots museums visited per card.
-
-    Parameters
-    ----------
-    :param df: dataframe
-    :param plotname1: str
-
-    Returns
-    -------
-    :return df2: dataframe
-    :return plot_url: dict
-
+    Plot museums visited per card.
     """
 
     # How many unique museums do card users visit?
@@ -766,21 +609,10 @@ def plot_museums_visited_per_card(df, plotname1='Number-museums-per-card'):
 def plot_day_of_activation(df, plotname='day-of-activation'):
 
     """
-
     Plots Aggregate of Day of Activation.
 
     For each entry where column 'adult_first_use' is True, get the day of card activation.
     Count the number of different activation days and return as bar plot.
-
-    Parameters
-    ----------
-    :param df: dataframe
-    :param plotname: str
-
-    Returns
-    -------
-    :return df2: dataframe
-    :return plot_url: dict
     """
 
     # todo sort order in logical day order
@@ -796,6 +628,7 @@ def plot_day_of_activation(df, plotname='day-of-activation'):
     df2 = df2['day_of_week'].value_counts().to_frame()
 
     # Frequency plot of number of unique museums visited per card
+    # todo fix the X axis labeling so it's not hardcoded!
     trace = go.Bar(x=['Tuesday', 'Wednesday', 'Friday', 'Thursday', 'Satuday', 'Sunday', 'Monday'],
                    y=df2.day_of_week,
                    marker=dict(color='#CC171D'))
@@ -818,81 +651,62 @@ def plot_day_of_activation(df, plotname='day-of-activation'):
     return df2, plot_url
 
 
-def plot_timeseries_button_plot(df, museum_list, timedelta='hour', plotname='timeseries'):
+# todo: fix plot_timeseries_button_plot module
+# def plot_timeseries_button_plot(df, museum_list, timedelta='hour', plotname='timeseries'):
 
-    """
+#     """
+#     Plots button plot of timeseries for a given timedelta
+#     """
 
-    Plots button plot of timeseries for a given timedelta
+#     dates = df.date.unique()
 
-    Parameters
-    ----------
-    :param df: dataframe
-    :param timedelta: str
-    :param plotname: str
+#     dataPanda = []
 
-    Returns
-    -------
-    :return df: dataframe
-    :return plot_url: dict
+#     # for n in range(1, len(museum_list)):
+#     #     for museum in museum_list:
+#     #         trace = go.Bar(x=df[museum][timedelta],
+#     #                        y=df[museum].total_entries,
+#     #                        name=museum,
+#     #                        visible=True,
+#     #                        marker=Marker(
+#     #                            color='#CC171D',  # set bar colors
+#     #                        ))
+#     #
+#     #         
+#     #         # args = [True, False, False, False, False, False, False, False, False, False, False,
+#     #         #                                      False, False, False, False, False, False, False, False, False, False, False,
+#     #         #                                      False, False, False, False, False, False, False, False, False, False, False,
+#     #         #                                      False, False, False, False, False, False, False, False]
 
-    """
 
-    dates = df.date.unique()
+#     data = dataPanda
 
-    dataPanda = []
+#     updatemenus = list([
+#         dict(type="dropdown",
+#              active=0,
+#              buttons=list([menusdict]),
+#              direction='down',
+#              showactive=True,
+#              x=1,
+#              xanchor='top',
+#              y=1,
+#              yanchor='top'
+#              )
+#     ])
 
-    # for n in range(1, len(museum_list)):
-    #     for museum in museum_list:
-    #         trace = go.Bar(x=df[museum][timedelta],
-    #                        y=df[museum].total_entries,
-    #                        name=museum,
-    #                        visible=True,
-    #                        marker=Marker(
-    #                            color='#CC171D',  # set bar colors
-    #                        ))
-    #
-    #         # todo: fix!
-    #         # args = [True, False, False, False, False, False, False, False, False, False, False,
-    #         #                                      False, False, False, False, False, False, False, False, False, False, False,
-    #         #                                      False, False, False, False, False, False, False, False, False, False, False,
-    #         #                                      False, False, False, False, False, False, False, False]
-    #
-    #         menusdict = dict(
-    #             label = dataPanda[n].name,
-    #             method = 'update',
-    #             args = [{'visible': args},
-    #                     {'title': dataPanda[n].name + ': Number of Museum Entries per ' + timedelta}])
-    #
-    #         dataPanda.append(trace)
+#     layout = go.Layout(
+#         showlegend=False,
+#         autosize=False,
+#         updatemenus=updatemenus,
+#         width=900,
+#         height=500,
+#         paper_bgcolor='#ffffff',
+#         plot_bgcolor='#ffffff',
+#         barmode='group',
+#     )
 
-    data = dataPanda
+#     fig = dict(data=data, layout=layout)
+#     plot_url = py.iplot(fig, filename=plotname, sharing='private')
 
-    updatemenus = list([
-        dict(type="dropdown",
-             active=0,
-             buttons=list([menusdict]),
-             direction='down',
-             showactive=True,
-             x=1,
-             xanchor='top',
-             y=1,
-             yanchor='top'
-             )
-    ])
-
-    layout = go.Layout(
-        showlegend=False,
-        autosize=False,
-        updatemenus=updatemenus,
-        width=900,
-        height=500,
-        paper_bgcolor='#ffffff',
-        plot_bgcolor='#ffffff',
-        barmode='group',
-    )
-
-    fig = dict(data=data, layout=layout)
-    plot_url = py.iplot(fig, filename=plotname, sharing='private')
-
-    return df, plot_url
+#     return df, plot_url
 
