@@ -9,10 +9,13 @@ path_firenzedata: '../src/output/firenzedata_raw.csv'
 path_firenzelocations_data: '../src/output/firenzedata_locations.csv'
 start_date: '2016-06-01'
 end_date: '2016-09-30'
+hour_time: 'hour'
+# default time is date unless otherwise specified
+date_time: 'date'
+dow_time: 'day_of_week'
 
 # museum entries params
-# me_names, me_timedelta, me_start_date, me_end_date, plot, export_to_csv, export_path
-me_timedelta: 'date'
+# me_names, me_start_date, me_end_date, plot, export_to_csv, export_path
 me_names: ['Santa Croce', 'Opera del Duomo', 'Uffizi', 'Accademia',
          'M. Casa Dante', 'M. Palazzo Vecchio', 'M. Galileo', 'M. Bargello',
          'San Lorenzo', 'M. Archeologico', 'Pitti', 'Cappelle Medicee',
@@ -26,14 +29,14 @@ me_names: ['Santa Croce', 'Opera del Duomo', 'Uffizi', 'Accademia',
          'M. Preistoria', 'M. Calcio', 'Primo Conti', 'All Museums']
 
 # get timedeltarange params
-tdr_timedelta: 'hour'
+tdr_time: 'hour'
 
 # correlation matrix params
 corr_method: 'kendall'
-cm_timedelta: 'date'
-timedelta_subset: True
-timedeltamin: 0
-timedeltamax: 6
+cm_time: 'hour'
+hourdelta_subset: True
+hourdeltamin: 0
+hourdeltamax: 6
 below_threshold: -0.7
 above_threshold: 0.7
 
@@ -47,7 +50,7 @@ start_date: '2016-06-01'
 end_date: '2016-09-30'
 
 # national museum entries
-plotname: national_museum_entries
+plotname: 'national_museum_entries'
 
 # fc and state museum monthly timeseries
 plotname: 'monthly_fc_statemuseums'
@@ -57,7 +60,7 @@ hour_min: 7
 hour_max: 23
 
 # geomap timeseries params
-timedelta: 'hour'
+geomap_time: 'hour'
 date_to_plot: '2016-06-01'
 plotname: 'testing-mapbox'
 mapbox_access_token: ''
@@ -69,3 +72,6 @@ plotname: 'day-of-activation'
 
 # museums_visited_per_card params
 plotname: 'Number-museums-per-card'
+
+# museum aggregate timeseries
+plotname: 'museum-popularity'

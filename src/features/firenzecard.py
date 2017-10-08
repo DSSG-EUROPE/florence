@@ -17,18 +17,13 @@ import plotly.graph_objs as go
 sys.path.append('../src/')
 #from IPython.core.debugger import Tracer
 
-import yaml
-with open("config.yml", 'r') as ymlfile:
-    cfg = yaml.load(ymlfile)
-
-
-def get_national_museums(connection, export_to_csv, export_path):
+def get_national_museums(db_connection, export_to_csv, export_path):
 
     """
     Get national museum data from DB
     """
 
-    df = pd.read_sql('select * from optourism.state_national_museum_visits', con=connection)
+    df = pd.read_sql('select * from optourism.state_national_museum_visits', con=db_connection)
 
     if export_to_csv:
         df.to_csv(f"{export_path}_nationalmuseums_raw.csv", index=False)
@@ -36,13 +31,13 @@ def get_national_museums(connection, export_to_csv, export_path):
     return df
 
 
-def get_firenze_data(connection, export_to_csv, export_path):
+def get_firenze_data(db_connection, export_to_csv, export_path):
 
     """
     Get FirenzeCard logs from DB
     """
 
-    df = pd.read_sql('select * from optourism.firenze_card_logs', con=connection)
+    df = pd.read_sql('select * from optourism.firenze_card_logs', con=db_connection)
 
     if export_to_csv:
         df.to_csv(f"{export_path}_firenzedata_raw.csv", index=False)
@@ -50,13 +45,13 @@ def get_firenze_data(connection, export_to_csv, export_path):
     return df
 
 
-def get_firenze_locations(connection, export_to_csv, export_path):
+def get_firenze_locations(db_connection, export_to_csv, export_path):
 
     """
     Get latitude and longitude fields from DB
     """
 
-    df = pd.read_sql('select * from optourism.firenze_card_locations', con=connection)
+    df = pd.read_sql('select * from optourism.firenze_card_locations', con=db_connection)
 
     if export_to_csv:
         df.to_csv(f"{export_path}_firenzedata_locations.csv", index=False)
@@ -64,7 +59,7 @@ def get_firenze_locations(connection, export_to_csv, export_path):
     return df
 
 
-def extract_features(connection, path_firenzedata, path_firenzelocations_data, export_to_csv, export_path):
+def extract_features(db_connection, path_firenzedata, path_firenzelocations_data, export_to_csv, export_path):
 
     """
     Feature extraction for FirenzeCard data
@@ -99,13 +94,12 @@ def extract_features(connection, path_firenzedata, path_firenzelocations_data, e
     if path_firenzedata:
         df = pd.read_csv(path_firenzedata)
     else:
-        df = get_firenze_data(connection, export_to_csv=True, export_path=export_path + 'firenzedata_raw.csv')
+        df = get_firenze_data(db_connection, True, f"{export_path}_firenzedata_raw.csv")
 
     if path_firenzelocations_data:
         df_locations = pd.read_csv(path_firenzelocations_data)
     else:
-        df_locations = get_firenze_locations(connection, export_to_csv=True,
-                                             export_path=export_path + 'firenzedata_locations.csv')
+        df_locations = get_firenze_locations(db_connection, True, f"{export_path}_firenzedata_locations.csv")
 
     df = pd.merge(df_locations, df, on=['museum_id', 'museum_name'], how='inner')
 
@@ -139,7 +133,6 @@ def extract_features(connection, path_firenzedata, path_firenzelocations_data, e
 
     for n in range(1, df['museum_id'].nunique()):
         df['is_in_museum_' + str(n)] = np.where(df['museum_id'] == n, 1, 0)
-
     if export_to_csv:
         df.to_csv(f"{export_path}_firenzedata_feature_extracted.csv", index=False)
 
@@ -164,7 +157,7 @@ def interpolate_on_timedelta(df, groupby_object,timedelta, timedelta_range=,
 
     if timedelta == 'date':
         columns = [groupby_object, count_column]
-        data = pd.DataFrame(0, index=np.arange(timedelta_range), columns=columns)
+        data = pd.DataFrame(0, np.arange(timedelta_range), columns)
         full_id_days = data.reindex(pd.MultiIndex.from_product([df[groupby_object].unique(),
                                                                 pd.date_range(start_date, end_date,
                                                                               freq=timeunit)]), fill_value=0)
@@ -177,13 +170,13 @@ def interpolate_on_timedelta(df, groupby_object,timedelta, timedelta_range=,
     return df_interpolated
 
 
-def get_museum_entries_per_timedelta_and_plot(df, museum_list, me_names, me_timedelta, start_date, end_date, plot,
-                                              export_to_csv, export_path):
+def get_museum_entries_per_timedelta_and_plot(df, museum_list, me_names, timedelta, start_date, end_date,
+                                              export_to_csv, export_path, plot):
     """
     Get museum timeseries for a given timedelta and plot
     """
 
-    timedelta_range, timeunit = get_timedelta_range(df, me_timedelta, start_date, end_date)
+    timedelta_range, timeunit = get_timedelta_range(df, timedelta, start_date, end_date)
 
     museum_dfs = {}
     plot_urls = {}
@@ -201,32 +194,29 @@ def get_museum_entries_per_timedelta_and_plot(df, museum_list, me_names, me_time
         else:
             df2 = df
 
-        df2 = df2.groupby(['museum_id', 'short_name', me_timedelta], as_index=False)
+        df2 = df2.groupby(['museum_id', 'short_name', timedelta], as_index=False)
         ['entrances_per_card_per_museum'].sum()
-        df_interpolated = interpolate_on_timedelta(df2, groupby_object='museum_id',
-                                                   timedelta=me_timedelta,
-                                                   timedelta_range=timedelta_range,
-                                                   count_column='entrances_per_card_per_museum',
-                                                   timeunit=timeunit)
+        df_interpolated = interpolate_on_timedelta(df2, 'museum_id', timedelta, timedelta_range,
+                                                   'entrances_per_card_per_museum', timeunit)
 
         df_interpolated = df_interpolated.rename(columns={'entrances_per_card_per_museum': 'total_entries'})
         df_interpolated['total_entries'] = df_interpolated['total_entries'].fillna(0)
 
         if export_to_csv:
-            df_interpolated.to_csv(f"{export_path} total_entries_{museum_name}_per_{me_timedelta}_.csv",
+            df_interpolated.to_csv(f"{export_path} total_entries_{museum_name}_per_{timedelta}_.csv",
                                    index=False)
 
-        df_interpolated = df_interpolated.groupby([me_timedelta, 'museum_id'], as_index=False)['total_entries'].sum()
+        df_interpolated = df_interpolated.groupby([timedelta, 'museum_id'], as_index=False)['total_entries'].sum()
 
         if plot:
             trace1 = go.Bar(
-                x=df_interpolated[me_timedelta],
+                x=df_interpolated[timedelta],
                 y=df_interpolated['total_entries'])
             data = [trace1]
             layout = go.Layout(
                 title=museum_name,
                 xaxis=dict(
-                    title=me_timedelta,
+                    title=timedelta,
                     titlefont=dict(family='Courier New, monospace', size=18, color='#7f7f7f')),
                 # rangeselector=dict(),
                 # rangeslider=dict(),
@@ -236,9 +226,9 @@ def get_museum_entries_per_timedelta_and_plot(df, museum_list, me_names, me_time
                     titlefont=dict(family='Courier New, monospace', size=18, color='#7f7f7f'))
             )
 
-            fig = dict(data=data, layout=layout)
-            plot_url = py.plot(fig, filename=f"{museum_name}_{me_timedelta}_{start_date}_{end_date}",
-                               sharing='private',auto_open=False)
+            fig = dict(data, layout)
+            plot_url = py.plot(fig, filename=f"{museum_name}_{timedelta}_{start_date}_{end_date}",
+                               sharing='private', auto_open=False)
 
             plot_urls[museum_name] = plot_url
 
@@ -288,8 +278,8 @@ def get_correlation_matrix(df, lst, corr_method, cm_timedelta, timedelta_subset,
     if timedelta_subset:
         df = df[(df[cm_timedelta] >= timedeltamin) & (df[cm_timedelta] <= timedeltamax)]
 
-    df = df.pivot(index=cm_timedelta, columns='museum_id', values='total_entries')
-    m = df.corr(method=corr_method).stack()
+    df = df.pivot(cm_timedelta, columns='museum_id', values='total_entries')
+    m = df.corr(corr_method).stack()
     corr_matrix = m[m.index.get_level_values(0) != m.index.get_level_values(1)]
 
     high = pd.DataFrame(corr_matrix[corr_matrix > above_threshold])
@@ -321,13 +311,13 @@ def get_correlation_matrix(df, lst, corr_method, cm_timedelta, timedelta_subset,
     return m, high_corr, inverse_corr
 
 
-def plot_national_museum_entries(connection, export_to_csv, export_path, plotname):
+def plot_national_museum_entries(db_connection, export_to_csv, export_path, plotname):
 
     """
     Plot National Museum Entries
     """
     
-    data = get_national_museums(connection, export_to_csv=export_to_csv, export_path=export_path)
+    data = get_national_museums(db_connection, export_to_csv, export_path)
     data = data[data['visit_month'].isin(['June', 'July', 'August', 'September'])]
     data = data.sort_values(['visit_month'], ascending=True)
 
@@ -339,12 +329,12 @@ def plot_national_museum_entries(connection, export_to_csv, export_path, plotnam
     )
 
     fig = go.Figure(data=go.Data([trace1]))
-    plot_url = py.iplot(fig, filename=plotname, sharing='private')
+    plot_url = py.iplot(fig, plotname, sharing='private')
 
     return data, plot_url
 
 
-def plot_geomap_timeseries(df, df_timeseries, timedelta, date_to_plot, plotname, mapbox_access_token, min_timedelta,
+def plot_geomap_timeseries(df, df_timeseries, geomap_timedelta, date_to_plot, plotname, mapbox_access_token, min_timedelta,
                            max_timedelta):
 
     """
@@ -354,7 +344,7 @@ def plot_geomap_timeseries(df, df_timeseries, timedelta, date_to_plot, plotname,
     df = df[df['date'] == date_to_plot]
     df = df[['museum_id', 'latitude', 'longitude', 'short_name']].drop_duplicates()
     df2 = pd.merge(df, df_timeseries, on=['museum_id'], how='inner')
-    df2 = df2[[timedelta, "total_entries", 'latitude', 'longitude', 'short_name']]
+    df2 = df2[[geomap_timedelta, "total_entries", 'latitude', 'longitude', 'short_name']]
 
     df2['short_name'][df2.total_entries == 0] = float('nan')
     df2['latitude'][df2.total_entries == 0] = float('nan')
@@ -366,14 +356,14 @@ def plot_geomap_timeseries(df, df_timeseries, timedelta, date_to_plot, plotname,
     df2 = df2[df2.hour <= max_timedelta]
 
     data = []
-    for hour in list(df2[timedelta].unique()):
+    for hour in list(df2[geomap_timedelta].unique()):
         trace = dict(
-            lat=df2[df2[timedelta] == hour]['latitude'],
-            lon=df2[df2[timedelta] == hour]['longitude'],
+            lat=df2[df2[geomap_timedelta] == hour]['latitude'],
+            lon=df2[df2[geomap_timedelta] == hour]['longitude'],
             name=hour,
             mode='marker',
             marker=dict(size=7),
-            text=df2[df2[timedelta] == hour]['name_entries'],
+            text=df2[df2[geomap_timedelta] == hour]['name_entries'],
             type='scattermapbox',
             hoverinfo='text'
         )
@@ -456,26 +446,26 @@ def plot_geomap_timeseries(df, df_timeseries, timedelta, date_to_plot, plotname,
 
     layout['updatemenus'] = updatemenus
     fig = dict(data=data, layout=layout)
-    plot_url = py.iplot(fig, filename=plotname, sharing='private', auto_open=False)
+    plot_url = py.iplot(fig, plotname, sharing='private', auto_open=False)
 
     return df2, plot_url
 
 
-def plot_fc_and_statemuseum_monthly_timeseries(df_date, connection, plotname):
+def plot_fc_and_statemuseum_monthly_timeseries(df_date, db_connection, plotname):
 
     """
     Plot Firenzecard and State Museum monthly aggregate timeseries.
     """
 
     # Histogram of Monthly total museum entry data for Firenze Card and National State Museums
-    statemuseum_data = get_national_museums(connection, export_to_csv=True, export_path='../src/output/')
+    statemuseum_data = get_national_museums(db_connection, export_to_csv=True, export_path='../src/output/')
     statemuseum_data = statemuseum_data[(statemuseum_data['visit_month'] == 'June') |
                                         (statemuseum_data['visit_month'] == 'July') |
                                         (statemuseum_data['visit_month'] == 'August') |
                                         (statemuseum_data['visit_month'] == 'September')]
     states_months = statemuseum_data.groupby('visit_month', as_index=False)['total_visitors'].sum().to_frame()
 
-    # todo clean this up 
+    # todo clean this up
     fc_june = df_date['All Museums'][(df_date['All Museums']['date'] > '2016-06-01') &
                                      (df_date['All Museums']['date'] < '2016-06-31')]['total_entries'].sum()
     fc_july = df_date['All Museums'][(df_date['All Museums']['date'] > '2016-07-01') &
@@ -507,7 +497,7 @@ def plot_fc_and_statemuseum_monthly_timeseries(df_date, connection, plotname):
     )
 
     fig = go.Figure(data=go.Data([trace1, trace2]))
-    plot_url = py.iplot(fig, filename=plotname, sharing='private')
+    plot_url = py.iplot(fig, plotname, sharing='private')
 
     return df2, plot_url
 
@@ -518,9 +508,7 @@ def get_timelines_of_usage(df_hour, df_date, df_dow, hour_min, hour_max):
     Get timelines of usage of Firenzecard data.
     """
 
-    # todo: clean this 
-    df_hour = df_hour[df_hour['hour'] >= hour_min]
-    df_hour = df_hour[df_hour['hour'] <= hour_max]
+    df_hour = df_hour[(df_hour['hour'] >= hour_min) & (df_hour['hour'] <= hour_max)]
 
     # How many users are there per day / hour / day-of-week on average across all museums, over the entire summer?
     df2_date = df_date.groupby('date', as_index=False)['total_entries'].mean()
@@ -530,10 +518,10 @@ def get_timelines_of_usage(df_hour, df_date, df_dow, hour_min, hour_max):
     return df2_hour, df2_dow, df2_date
 
 
-def plot_museum_aggregate_entries(df, plotname='museum-popularity'):
+def plot_museum_aggregate_entries(df, plotname):
 
     """
-    Plot total museum entries over entrie summer 2016, for each museum.
+    Plot total museum entries over entries summer 2016, for each museum.
     """
 
     df2 = df.groupby('short_name', as_index=True).sum()['total_people'].to_frame()
@@ -546,7 +534,7 @@ def plot_museum_aggregate_entries(df, plotname='museum-popularity'):
     )
 
     fig = go.Figure(data=go.Data([trace]))
-    plot_url = py.iplot(fig, filename=plotname, sharing='private', auto_open=False)
+    plot_url = py.iplot(fig, plotname, sharing='private', auto_open=False)
 
     return df2, plot_url
 
@@ -581,7 +569,7 @@ def plot_museums_visited_per_card(df, plotname):
     )
 
     fig = go.Figure(data=go.Data([trace1]), layout=layout)
-    plot_url1 = py.iplot(fig, filename=plotname, sharing='private', auto_open=False)
+    plot_url1 = py.iplot(fig, plotname, sharing='private', auto_open=False)
 
     return df2, plot_url1
 
@@ -622,7 +610,7 @@ def plot_day_of_activation(df, plotname):
         )
     )
     fig = go.Figure(data=go.Data([trace]), layout=layout)
-    plot_url = py.iplot(fig, filename=plotname, sharing='private', auto_open=False)
+    plot_url = py.iplot(fig, plotname, sharing='private', auto_open=False)
 
     return df2, plot_url
 

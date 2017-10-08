@@ -1,4 +1,8 @@
 
+import yaml
+from features.firenzecard import *
+from utils.database import dbutils
+
 def main():
 
     """
@@ -25,17 +29,19 @@ def main():
     # ---------------------------------------
 
     # todo import yaml with plotly and mapbox cdredentials
-    
+
+    with open("firenzecard_params.yml", 'r') as ymlfile:
+        cfg = yaml.load(ymlfile)
+
     # connect to db get firenzecard_logs data and export to CSV
-    firenzedata = get_firenze_data(db_connection, export_to_csv=True)
+    get_firenze_data(db_connection, cfg.export_to_csv)
 
     # get firenzecard_locations data and export to CSV
-    firenzedata_locations = get_firenze_locations(db_connection, export_to_csv=True)
+    get_firenze_locations(db_connection, cfg.export_to_csv)
 
     # extract features from data and export to CSV
-    df = extract_features(db_connection, path_firenzedata='../src/output/firenzedata_raw.csv',
-                           path_firenzelocations_data='../src/output/firenzedata_locations.csv',
-                           export_to_csv=True, export_path='../src/output/')
+    df = extract_features(db_connection, cfg.path_firenzedata, cfg.path_firenzelocations_data,
+                           cfg.export_to_csv, cfg.export_path)
 
     # How many cards are there?
     print('How many Firenzecards are there?', len(df['user_id'].unique()))
@@ -60,7 +66,7 @@ def main():
           len(df[(df['total_duration_card_use'] > 48) & (df['total_duration_card_use'] <= 72)].user_id.unique()))
 
     # How many museums visited per card
-    total_museums_per_card, plot_url2 = plot_museums_visited_per_card(df, plotname1='Number-museums-per-card')
+    total_museums_per_card, plot_url2 = plot_museums_visited_per_card(df, plotname='Number-museums-per-card')
     print('Museums visited per card graph url: ', plot_url2)
 
     # What are the most popular museums?
@@ -68,8 +74,8 @@ def main():
     print('Most popular museums graph url:', plot_url1)
 
     # Plot aggregate national museum entries
-    national_museum_entries, plot_url3 = plot_national_museum_entries(connection, export_to_csv=True,
-                                                                      export_path='../src/output/')
+    national_museum_entries, plot_url3 = plot_national_museum_entries(db_connection, cfg.export_to_csv,
+                                                                      cfg.export_path)
     print('Aggregate National Museum Entries graph url:', plot_url3)
 
     # How many cards are entering museums with minors? What proportion of all cards is this?
@@ -77,49 +83,34 @@ def main():
     minors = minors.groupby('user_id').size().to_frame()
     print('How many cards are entering museums with minors?', len(minors))
 
-    museum_list = ['Santa Croce', 'Opera del Duomo', 'Uffizi', 'Accademia',
-                   'M. Casa Dante', 'M. Palazzo Vecchio', 'M. Galileo', 'M. Bargello',
-                   'San Lorenzo', 'M. Archeologico', 'Pitti', 'Cappelle Medicee',
-                   'M. Santa Maria Novella', 'M. San Marco', 'Laurenziana',
-                   'M. Innocenti', 'Palazzo Strozzi', 'Palazzo Medici',
-                   'Torre di Palazzo Vecchio', 'Brancacci', 'M. Opificio',
-                   'La Specola', 'Orto Botanico', 'V. Bardini', 'M. Stefano Bardini',
-                   'M. Antropologia', 'M. Ebraico', 'M. Marini', 'Casa Buonarroti',
-                   'M. Horne', 'M. Ferragamo', 'M. Novecento', 'M. Palazzo Davanzati',
-                   'M. Geologia', 'M. Civici Fiesole', 'M. Stibbert', 'M. Mineralogia',
-                   'M. Preistoria', 'M. Calcio', 'Primo Conti', 'All Museums']
-
     # Date timeseries
-    df_date, plot_urls = get_museum_entries_per_timedelta_and_plot(df, museum_list, timedelta='date',
-                                                                   start_date='2016-06-01',
-                                                                   end_date='2016-09-30', plot=False,
-                                                                   export_to_csv=False,
-                                                                   export_path='../src/output/')
+    df_date, plot_urls = get_museum_entries_per_timedelta_and_plot(df, cfg.me_names, cfg.me_time,
+                                                                   cfg.start_date,cfg.end_date,
+                                                                   cfg.export_to_csv, cfg.export_path, plot=False)
 
+    # todo: fix plotting function
     # Daily Museums entries
-    date, date_url = plot_timeseries_button_plot(df_date, timedelta='date', plotname='timeseries')
-    print('Daily Museum Timeseries url: ', date_url)
+    # date, date_url = plot_timeseries_button_plot(df_date, cfg.date_time, plotname)
+    # print('Daily Museum Timeseries url: ', date_url)
 
     # Hourly timeseries
-    df_hour, plot_urls = get_museum_entries_per_timedelta_and_plot(df, museum_list, timedelta='hour',
-                                                                   start_date='2016-06-01',
-                                                                   end_date='2016-09-30', plot=False,
-                                                                   export_to_csv=False,
-                                                                   export_path='../src/output/')
-    # Hourly Museums entries
-    hour, hour_url = plot_timeseries_button_plot(df_hour, timedelta='hour', plotname='timeseries')
-    print('Hourly Museum Timeseries url: ', hour_url)
+    df_hour, plot_urls = get_museum_entries_per_timedelta_and_plot(df, cfg.me_names, cfg.hour_time,
+                                                                   cfg.start_date,cfg.end_date,
+                                                                   cfg.export_to_csv, cfg.export_path, plot=False)
+    # todo: fix plotting function
+    #  Hourly Museums entries
+    # hour, hour_url = plot_timeseries_button_plot(df_hour, cfg.hour_time, plotname)
+    # print('Hourly Museum Timeseries url: ', hour_url)
 
     # Day of Week timeseries
-    df_dow, plot_urls = get_museum_entries_per_timedelta_and_plot(df, museum_list, timedelta='day_of_week',
-                                                                  start_date='2016-06-01',
-                                                                  end_date='2016-09-30', plot=False,
-                                                                  export_to_csv=False,
-                                                                  export_path='../src/output/')
+    df_dow, plot_urls = get_museum_entries_per_timedelta_and_plot(df, cfg.me_names, cfg.dow_time,
+                                                                  cfg.start_date,cfg.end_date,
+                                                                  cfg.export_to_csv,cfg.export_path, plot=False)
 
+    # todo: fix plotting function
     # Day of Week museum entries
-    dow, dow_url = plot_timeseries_button_plot(df_dow, timedelta='day_of_week', plotname='timeseries')
-    print('Day of the Week Museum Timeseries url: ', dow_url)
+    # dow, dow_url = plot_timeseries_button_plot(df_dow, cfg.dow_time, plotname)
+    # print('Day of the Week Museum Timeseries url: ', dow_url)
 
     # Timelines of usage / how many users on average in time per timedelta
     df2_date = df_date['All Museums']
@@ -136,21 +127,19 @@ def main():
 
     # Which museums are full, and which are rather empty, at different times of the day?
     # Are they located next to each other?
-#     data, geomap_plot_url = plot_geomap_timeseries(df, df2_hour, date_to_plot='2016-07-10',
-#                                                    plotname='map',
-#                                                    mapbox_access_token='',
-#                                                    min_timedelta=7,
-#                                                    max_timedelta=23)
+#     data, geomap_plot_url = plot_geomap_timeseries(df, df2_hour, date_to_plot, plotname,
+#                                                    mapbox_access_token=cfg.mapbox_token,
+#                                                    min_timedelta, max_timedelta)
 #     print('Geomap graph url: ', geomap_plot_url)
 
     # Which museums have inverse correlationns?
     # todo implement museum size (capacity) as a feature, and taking closure timesinto account in correlations
     lst = list(df.museum_id.unique())
-    corr_matrix, high_corr, inverse_corr = get_correlation_matrix(df=df2_hour, lst=lst, corr_method='spearman',
-                                                                  timedelta='hour', timedelta_subset=False,
-                                                                  timedeltamin=0, timedeltamax=3,
-                                                                  below_threshold=-0.7, above_threshold=0.7,
-                                                                  export_to_csv=True, export_path='../src/output/')
+    corr_matrix, high_corr, inverse_corr = get_correlation_matrix(df2_hour, lst, cfg.corr_method,
+                                                                  cfg.hour_timedelta, cfg.hourdelta_subset,
+                                                                  cfg.hourdeltamin, cfg.hourdeltamax,
+                                                                  cfg.below_threshold, cfg.above_threshold,
+                                                                  cfg.export_to_csv, cfg.export_path)
 
     print('Inversely correlated Museums IDs: ', inverse_corr)
     print('Highly correlated Museums IDs: ', high_corr)
