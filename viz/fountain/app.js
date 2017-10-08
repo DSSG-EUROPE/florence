@@ -22,28 +22,28 @@ const tooltipStyle = {
   pointerEvents: 'none'
 };
 
-const tabStrings = {
-  0: {
+const strings = {
+  1: {
     showFrom: false,
     title: 'Where Do People Go?',
     description: 'These are the percentages of people who leave to go to each of the following destinations using the Firenzecard',
     type: 'museum'
   },
-  1: {
+  0: {
     showFrom: true,
     title: 'Where Do People Come From?',
     description: 'These are the percentages of people who arrived to this destination from each of the following destinations using the Firenzecard',
     type: 'museum'
   },
-  2: {
+  3: {
     showFrom: false,
-    title: 'Where Do Foreign Daytrippers Go?',
+    title: 'Where Do Foreign Excursionists Go?',
     description: 'These are the percentages of one day visit foreigners leaving to go elsewhere as calculated from telecom data from the four month period of June to September, 2016',
     type: 'daytripper'
   },
-  3: {
+  2: {
     showFrom: true,
-    title: 'Where Do Foreign Daytrippers Come From?',
+    title: 'Where Do Foreign Excursionists Come From?',
     description: 'These are the percentages of one day visit foreigners arriving in this location as calculated from telecom data from the four month period of June to September, 2016',
     type: 'daytripper'
   }
@@ -54,17 +54,29 @@ class Root extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 1
+      selectedTab: 0,
+      selectedTo: false,
+      selectedStrings: 0
     };
   }
 
   handleTabClick(index) {
-    this.setState({ selectedTab: index });
+    this.setState({ 
+      selectedTab: index,
+      selectedStrings: (index * 2 + this.state.selectedTo)
+    });
+  }
+
+  handleToFromToggle(direction) {
+    this.setState({ 
+      selectedTo: direction,
+      selectedStrings: (this.state.selectedTab * 2 + direction)
+    });
   }
 
   render() {
-    const {selectedTab} = this.state;
-    const { showFrom, title, description, type } = tabStrings[selectedTab];
+    const { selectedTab, selectedStrings } = this.state;
+    const { showFrom, title, description, type } = strings[selectedStrings];
     const isMuseum = type === 'museum';
     const isDaytripper = type === 'daytripper';
 
@@ -73,10 +85,8 @@ class Root extends Component {
         <Header
           siteTitle="Project Florence"
           tabs={[
-            { title: 'To Museums' },
-            { title: 'From Museums' },
-            { title: 'Daytrippers To' },
-            { title: 'Daytrippers From' }
+            { title: 'Museums' },
+            { title: 'Excursionists' }
           ]}
           onTabClick={this.handleTabClick.bind(this)}
           selectedTab={selectedTab}
@@ -87,6 +97,7 @@ class Root extends Component {
           isOutFlow={!showFrom}
           title={title}
           description={description}
+          onToggleClick={this.handleToFromToggle.bind(this)}
         />}
         {isDaytripper && <CdrFountain
           defaultItemId="55"
@@ -94,6 +105,7 @@ class Root extends Component {
           isOutFlow={!showFrom}
           title={title}
           description={description}
+          onToggleClick={this.handleToFromToggle.bind(this)}
         />}
       </div>
     );

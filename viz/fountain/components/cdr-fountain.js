@@ -5,6 +5,7 @@ import MapGL from 'react-map-gl';
 import DeckGLOverlay from './deckgl-overlay.js';
 import LegendInfo from './legend-info';
 import Fountain from './fountain';
+import Toggle from './toggle';
 
 import {json as requestJson} from 'd3-request';
 
@@ -30,8 +31,8 @@ export default class CdrFountain extends Fountain {
   }
 
   render() {
-    const {viewport, data, selectedItem, dataDict} = this.state;
-    const {mapboxToken, title, description, isOutFlow} = this.props;
+    const { viewport, data, selectedItem, dataDict } = this.state;
+    const { mapboxToken, title, description, isOutFlow, onToggleClick } = this.props;
 
     return (
       <div>
@@ -58,7 +59,7 @@ export default class CdrFountain extends Fountain {
                 return [rgb, rgb, rgb]
               },
               getLineColor: () => [0, 0, 0],
-            }}
+            }} 
           />
         </MapGL>
         <LegendInfo
@@ -68,6 +69,9 @@ export default class CdrFountain extends Fountain {
           description={description}
           isOutFlow={isOutFlow}
           dataDict={dataDict}
+        />
+        <Toggle
+          onToggleClick={onToggleClick}
         />
       </div>
     );

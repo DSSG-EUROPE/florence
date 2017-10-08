@@ -4,6 +4,7 @@ import {render} from 'react-dom';
 import MapGL from 'react-map-gl';
 import DeckGLOverlay from './deckgl-overlay.js';
 import LegendInfo from './legend-info';
+import Toggle from './toggle';
 
 import {json as requestJson} from 'd3-request';
 
@@ -79,7 +80,7 @@ export default class Fountain extends Component {
 
   render() {
     const {viewport, data, dataDict, selectedItem} = this.state;
-    const {mapboxToken, title, description, isOutFlow} = this.props;
+    const {mapboxToken, title, description, isOutFlow, onToggleClick} = this.props;
 
     return (
       <div>
@@ -108,6 +109,9 @@ export default class Fountain extends Component {
           description={description}
           isOutFlow={isOutFlow}
           dataDict={dataDict}
+        />
+        <Toggle
+          onToggleClick={onToggleClick}
         />
       </div>
     );

@@ -1,0 +1,28 @@
+{
+  "scripts": {
+    "start-local": "webpack-dev-server --env.local --progress --hot --port 3030 --open",
+    "start": "webpack-dev-server --progress --hot --port 3030 --open",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "d3-request": "1.0.5",
+    "d3-scale": "1.0.5",
+    "deck.gl": "4.1.0",
+    "luma.gl": "4.0.0",
+    "preact": "^8.2.5",
+    "preact-compat": "^3.17.0",
+    "react": "15.4.1",
+    "react-dom": "15.4.1",
+    "react-map-gl": "3.0.0"
+  },
+  "devDependencies": {
+    "buble-loader": "0.4.0",
+    "rollup-plugin-commonjs": "^8.2.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-uglify": "^2.0.1",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "webpack": "2.2.0",
+    "webpack-dev-server": "2.2.0"
+  }
+}
