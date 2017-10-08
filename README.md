@@ -1,6 +1,8 @@
 # Data Science for Social Good Europe 2017
 ## Data-Driven Planning for Sustainable Tourism in Tuscany
 
+![alt text](http://dssg-eu.org/florence/fountain.gif)
+
 ### Project & Partners
 Mass tourism is at a tipping point. Larger populations now have the budget for travel and the awareness of historic destinations. High-speed trains and low-cost airlines give greater mobility options. Online resources such as travel information sites, social media, and mapping applications help people aspire to destinations and plan itineraries. Cities working with analog management of their cultural resources may be ill-equipped to react to new patterns of mass tourism. Local, regional, and national governments are asking how they can accommodate tourists and sustain the sector while maintaining the quality of life for residents. 
 
