@@ -49,9 +49,8 @@
               <ul class="menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="firenze_index.html">FirenzeCard</a></li>
-                <li><a href="cdr_index.html">Telecom</a></li>
+                <li class="selected"><a href="cdr_index.html">Telecom</a></li>
                 <li><a href="fountain.html" target="_blank">Flows</a></li>
-                <li><a href="DSSG_Florence_report.pdf" target="_blank">Report</a></li>
               </ul>
             </div>
           </div><!--end of row-->
@@ -77,15 +76,15 @@
 
               - the anonymized user identifier for the customer
 
-              <br><br>
+              <br>
 
               - the nationality or home region in Italy of the user’s SIM card
 
-              <br><br>
+              <br>
 
               - the date and time of the  event
 
-              <br><br>
+              <br>
 
               - the coordinates of the tower that handled the call
 
@@ -106,7 +105,7 @@
             <p>
               The total estimated presences per day for all types of people in the city of Florence during the summer. We can see that on an average day, one third of the people in the city are tourists. That ratio increases in the month of August as foreign tourism remains somewhat constant, whereas the resident population makes a dip. We can also see cyclic activity that is likely due in part to reduced calling on weekends.
             </p>
-            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/250.embed?share_key=WtUQa7FuzL6C1StwF3OYQC&link=false"></iframe>
+            <div class="plot-iframe" id="plotly-total-presence"></div>
           </div>
 
           <div id="foreign-presence" class="plot-section">
@@ -114,7 +113,7 @@
             <p>
               The estimates for foreign presence. The breaks are done by region of the world, with the most common tourist countries (The United States, France, Germany, Spain, and China) plotted separately instead of aggregated into their region. This shows that peak visiting months are not the same for every country.
             </p>
-            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/246.embed?share_key=IEEhKMOtIGJzLit2Ri4kdK&link=false"></iframe>
+            <div class="plot-iframe" id="plotly-foreign-presence"></div>
           </div>
 
           <div id="italian-presence" class="plot-section">
@@ -122,7 +121,7 @@
             <p>
               The estimates for presence of Italian visitors. We see that the majority of Italian visitors to Florence come from elsewhere in Tuscany.
             </p>
-            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/244.embed?share_key=iXHOGtjCxeUivQBfoxDxqq&link=false"></iframe>
+            <div class="plot-iframe" id="plotly-italian-presence"></div>
           </div>
 
           <div id="number-visits-foreign" class="plot-section">
@@ -130,7 +129,7 @@
             <p>
               The breakdown of the estimates for number of visits foreign visitors make to the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.
             </p>
-            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/445.embed?share_key=iixTNUq0D9b1g7sh3YhU6Q&link=false"></iframe>
+            <div class="plot-iframe" id="plotly-number-visits-foreign"></div>
           </div>
 
           <div id="number-visits-italian" class="plot-section">
@@ -138,7 +137,7 @@
             <p>
               The breakdown of the estimates for number of visits italian visitors make to the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.
             </p>
-            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/447.embed?share_key=Thtu3W58waDpqphPczgH3B&link=false"></iframe>
+            <div class="plot-iframe" id="plotly-number-visits-italian"></div>
           </div>
 
           <div id="duration-stay-foreign" class="plot-section">
@@ -146,7 +145,7 @@
             <p>
               The estimates for how many days foreign visitors stay in the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.
             </p>
-            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/443.embed?share_key=kEUD1cQn7gZmoAtCN2vNaN&link=false"></iframe>
+            <div class="plot-iframe" id="plotly-duration-stay-foreign"></div>
           </div>
 
           <div id="duration-stay-italian" class="plot-section">
@@ -154,7 +153,7 @@
             <p>
               The estimates for how many days Italian visitors stay in the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.
             </p>
-            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/439.embed?share_key=YtTwbxvPjL80LV6dCaTvdf&link=false"></iframe>
+            <div class="plot-iframe" id="plotly-duration-stay-italian"></div>
           </div>
         </div> 
 		</section>
@@ -163,20 +162,77 @@
   <div class="content-nav">
     <ul class="nav nav-tabs nav-stacked primary">
       <li class="tab"><a href="#introduction">Introduction</a></li>
-      <li class="tab"><a href="#total-presence">Total museum entries and Firenzecard entries</a></li>
-      <li class="tab"><a href="#daily-presence">Number of museums visited</a></li>
-      <li class="tab"><a href="#card-activation">Card Activation</a></li>
-      <li class="tab"><a href="#entries-week">Museum entries per day of the week</a></li>
-      <li class="tab"><a href="#entries-hour">Museum entries per hour</a></li>
-      <li class="tab"><a href="#entries-day">Museum entries per day of the summer</a></li>
+      <li class="tab"><a href="#total-presence">Total estimated daily presences</a></li>
+      <li class="tab"><a href="#foreign-presence">Estimated daily presence of foreign visitors</a></li>
+      <li class="tab"><a href="#italian-presence">Estimated daily presence of Italian visitors</a></li>
+      <li class="tab"><a href="#number-visits-foreign">Number of visits of each foreign visitor</a></li>
+      <li class="tab"><a href="#number-visits-italian">Number of visits of each Italian visitor</a></li>
+      <li class="tab"><a href="#duration-stay-foreign">Duration of stay of foreign visitors</a></li>
+      <li class="tab"><a href="#duration-stay-italian">Duration of stay of Italian visitors</a></li>
     </ul>
   </div> 
 
 	<div class="footer-container">
-		<footer class="bg-primary short-2">
-		</footer>
-	</div>
-			
+    <footer class="bg-primary short-2">
+      <div class="container">
+        <div class="right-footer">
+          <h6>Created by Cristina Lozano, Io Flament, and Momin Malik.</h6>
+          <div class="footer-nav">
+            <a href="DSSG_Florence_report.pdf">Report</a>
+            <a href="https://dssg.uchicago.edu/europe/">DSSG Europe</a>
+            <a href="https://github.com/DSSG2017/florence">Github</a>
+          </div>
+          <div class="disclaimer">All analysis and opinions contained here are the authors’ own, and are not necessarily held or endorsed by any of the partners or data-providing agencies.</div>
+        </div>
+        <div class="left-footer">
+          <h5>Acknowledgements</h5>
+          <div class="small-text-block">
+              Toscana Promozione Turistica
+             | 
+              Comune di Firenze, Assessorato al Turismo e Direzione Cultura
+             | 
+              Linea Comune S.p.A
+             | 
+              The Ufficio di Statistica at Ministero dei Beni e delle Attività Culturali e del Turismo
+             | 
+              Centro Studi Turistici di Firenze
+             | 
+              Toscana Aeroporti
+             | 
+              Uffici informazioni turistiche della Città Metropolitana di Firenze
+             | 
+              Uffici Informazioni Turistiche del Comune di Firenze
+             | 
+              Servizi alla Strada S.p.A.
+             | 
+              Istituto Regionale Programmazione Economica Toscana
+              |
+              Vodafone Italy
+             | 
+              Collective Sensing (CS) Research Foundation
+             | 
+              Nova School of Business and Economics
+             | 
+              The University of Chicago
+             | 
+              Amazon Web Services
+            </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+	
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="cdrPlots.js"></script>
+    <script>
+      totalPresences();
+      foreignPresences();
+      italianPresences();
+      foreignNumberOfTrips();
+      italianNumberOfTrips();
+      foreignLengthStay();
+      italianLengthStay();
+    </script>		
 	<script src="./js/jquery.min.js"></script>
   <script src="./js/jquery.plugin.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
@@ -234,7 +290,14 @@
         menuItems
           .parent().removeClass("active")
           .end().filter("[href='#"+id+"']").parent().addClass("active");
-      }                   
+      }
+
+      var sidebar = $('.plot-page .content-nav');
+      if (sidebar.offset().top + sidebar.height() >= $('.footer-container').offset().top - 20) {
+        sidebar.css('position', 'absolute');
+      } else if($(document).scrollTop() + window.innerHeight < $('.footer-container').offset().top) {
+        sidebar.css('position', 'fixed'); // restore when you scroll up        
+      }         
     });
     </script>
   </body>

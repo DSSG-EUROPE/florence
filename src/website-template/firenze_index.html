@@ -49,10 +49,9 @@
   					<div class="col-sm-9 col-md-10 columns">
     					<ul class="menu">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="firenze_index.html">FirenzeCard</a></li>
+                <li class="selected"><a href="firenze_index.html">FirenzeCard</a></li>
                 <li><a href="cdr_index.html">Telecom</a></li>
                 <li><a href="fountain.html" target="_blank">Flows</a></li>
-                <li><a href="DSSG_Florence_report.pdf" target="_blank">Report</a></li>
               </ul>
   					</div>
   				</div><!--end of row-->
@@ -89,7 +88,7 @@
               <p class="plot-description">
                 The total museum entries dataset provided is a monthly aggregate of the number of visitor entries at national state museums, allowing to make broader estimates of the total count of tourists visiting attractions during the period of 1st June until 30th September 2016. There is a large but not total overlap between Firenzecard sites and state museum sites. Most visitors of museums and tourist attractions purchase the normal museum tickets without the card, however approximately 10% of all museum visitors recorded in the summer 2016 entered on the Firenzecard. This graph shows us the total number of museum entries for both the State Museum dataset and the Firenzecard dataset, over the period of June 1 - September 30 2016.
               </p>
-              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/426.embed?share_key=ALTSeJl0uf6L7Qn8yd7eJt&link=false"></iframe>
+              <div class="plot-iframe" id="plotly-total-museum"></div>
             </div>
 
             <div id="entries-per-museum" class="plot-section">
@@ -97,7 +96,7 @@
               <p class="plot-description">
                 This graph shows us the number of museums visited per card, over the period of June 1 - September 30 2016. We observe that most Firenzecard users visit 6 museums.
               </p>
-              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/433.embed?share_key=aoL9FNs7XX3DvxvJLC1foJ&link=false"></iframe>
+              <div class="plot-iframe" id="plotly-entries-per-museum"></div>
             </div>
 
             <div id="number-museums-visited" class="plot-section">
@@ -105,7 +104,7 @@
               <p class="plot-description">
                 This graph shows us the number of museums visited per card, over the period of June 1 - September 30 2016. We observe that most Firenzecard users visit 6 museums.
               </p>
-              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/148.embed?share_key=tGjLEepDtyfbRwI5eOfkvJ&link=false"></iframe>
+              <div class="plot-iframe" id="plotly-number-museums-visited"></div>
             </div>
 
             <div id="card-activation" class="plot-section">
@@ -113,7 +112,7 @@
               <p class="plot-description">
                 This graph shows us the most common days of FirenzeCard activation, over the period of June 1 - September 30 2016. Two of the most popular museums to first use a card are the Uffizi and the Accademia. Given that both of those museums are closed on Mondays, we see an expected surge of activations on Tuesday. This has broader implications for the types of people buying Firenzecards; since many users want to use their card to obtain priority entry at the top museums, people are less likely to want to use a Firenzecard if their trip to Florence includes a Monday. Additionally, this large surge in activations on Tuesdays can partially account for the lowered entry rates with the Firenzecard we see on Friday, Saturday, Sunday,   and   Monday   at   many   museums.
               </p>
-              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/487.embed?share_key=5VcYR5R6YVIPeu45CyqzW8&link=false"></iframe>  
+              <div class="plot-iframe" id="plotly-card-activation"></div> 
             </div>
 
             <div id="entries-week" class="plot-section">
@@ -121,7 +120,7 @@
               <p class="plot-description">
                 This graph shows us the total number of museum entries at different FirenzeCard attractions, over the period of June 1 - September 30 2016.
               </p>
-              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/417.embed?share_key=LWI91JrIbVRls7HeRDoNjt&link=false"></iframe>
+              <div class="plot-iframe" id="plotly-entries-week"></div> 
             </div>
 
             <div id="entries-hour" class="plot-section">
@@ -129,7 +128,7 @@
               <p>
                 This graph shows us the total number of hourly museum entries at different FirenzeCard attractions, over the period of June 1 - September 30 2016. Starting at 8am, a large number of tourists are already visiting attractions. It is also less common to visit museums later in the afternoon and evening. This is due in part to the fact that there are fewer museums open at these times. One would assume that a visitor would not want to enter a museum too close to its closing time.
               </p>
-              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/326.embed?share_key=z97J3oziXhPcAIihPIDsBM&link=false"></iframe>
+              <div class="plot-iframe" id="plotly-entries-hour"></div>
             </div>
 
             <div id="entries-day" class="plot-section">
@@ -137,7 +136,7 @@
               <p>
                 This graph shows us the total number of museum entries at different FirenzeCard attractions, over the period of June 1 - September 30 2016. The peak number of entries for Firenzecard holders is in August.
               </p>
-              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/415.embed?share_key=ukMQk6WjJfS7IUGISzjxea&link=false"></iframe>
+              <div class="plot-iframe" id="plotly-entries-day"></div>
             </div>
 
           </div>
@@ -158,10 +157,66 @@
     </div>
 
 		<div class="footer-container">
-			<footer class="bg-primary short-2">
-			</footer>
-		</div>
-				
+      <footer class="bg-primary short-2">
+        <div class="container">
+          <div class="right-footer">
+            <h6>Created by Cristina Lozano, Io Flament, and Momin Malik.</h6>
+            <div class="footer-nav">
+              <a href="DSSG_Florence_report.pdf">Report</a>
+              <a href="https://dssg.uchicago.edu/europe/">DSSG Europe</a>
+              <a href="https://github.com/DSSG2017/florence">Github</a>
+            </div>
+            <div class="disclaimer">All analysis and opinions contained here are the authors’ own, and are not necessarily held or endorsed by any of the partners or data-providing agencies.</div>
+          </div>
+          <div class="left-footer">
+            <h5>Acknowledgements</h5>
+            <div class="small-text-block">
+                Toscana Promozione Turistica
+               | 
+                Comune di Firenze, Assessorato al Turismo e Direzione Cultura
+               | 
+                Linea Comune S.p.A
+               | 
+                The Ufficio di Statistica at Ministero dei Beni e delle Attività Culturali e del Turismo
+               | 
+                Centro Studi Turistici di Firenze
+               | 
+                Toscana Aeroporti
+               | 
+                Uffici informazioni turistiche della Città Metropolitana di Firenze
+               | 
+                Uffici Informazioni Turistiche del Comune di Firenze
+               | 
+                Servizi alla Strada S.p.A.
+               | 
+                Istituto Regionale Programmazione Economica Toscana
+                |
+                Vodafone Italy
+               | 
+                Collective Sensing (CS) Research Foundation
+               | 
+                Nova School of Business and Economics
+               | 
+                The University of Chicago
+               | 
+                Amazon Web Services
+              </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+		
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="firenzePlots.js"></script>
+    <script>
+      totalMuseum();
+      entriesPerMuseum();
+      numberMuseumsVisited();
+      cardActivation();
+      entriesWeek();
+      entriesHour();
+      entriesDay();
+    </script>
 		<script src="./js/jquery.min.js"></script>
     <script src="./js/jquery.plugin.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
@@ -208,8 +263,8 @@
 
       // Bind to scroll
       $(window).scroll(function(){
-         // Get container scroll position
-         var fromTop = $(this).scrollTop()+topMenuHeight;
+        // Get container scroll position
+        var fromTop = $(this).scrollTop()+topMenuHeight;
          
          // Get id of current scroll item
          var cur = scrollItems.map(function(){
@@ -220,13 +275,20 @@
          cur = cur[cur.length-1];
          var id = cur && cur.length ? cur[0].id : "";
          
-         if (lastId !== id) {
+        if (lastId !== id) {
              lastId = id;
              // Set/remove active class
              menuItems
                .parent().removeClass("active")
                .end().filter("[href='#"+id+"']").parent().addClass("active");
-         }                   
+        }
+
+        var sidebar = $('.plot-page .content-nav');
+        if (sidebar.offset().top + sidebar.height() >= $('.footer-container').offset().top - 20) {
+          sidebar.css('position', 'absolute');
+        } else if($(document).scrollTop() + window.innerHeight < $('.footer-container').offset().top) {
+          sidebar.css('position', 'fixed'); // restore when you scroll up        
+        }                   
       });
     </script>
   </body>

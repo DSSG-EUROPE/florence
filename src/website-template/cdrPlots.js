@@ -50,11 +50,9 @@ function totalPresences() {
     };
     data = [trace1, trace2, trace3];
     layout = {
-      autosize: false,
       bargap: 0,
       barmode: 'stack',
       dragmode: 'zoom',
-      height: 400,
       legend: {
         x: 1,
         y: 1,
@@ -62,7 +60,7 @@ function totalPresences() {
       },
       title: 'Total Estimated Presences in Florence per Day',
       titlefont: {size: 20},
-      width: 1000,
+      autosize: true,
       xaxis: {
         autorange: false,
         nticks: 5,
@@ -91,7 +89,7 @@ function totalPresences() {
         type: 'linear'
       }
     };
-    Plotly.plot('total-presences', {
+    Plotly.plot('plotly-total-presence', {
       data: data,
       layout: layout
     });
@@ -300,12 +298,11 @@ function italianPresences() {
     };
     data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8, trace9, trace10, trace11, trace12, trace13, trace14, trace15, trace16, trace17, trace18, trace19, trace20];
     layout = {
-      autosize: true,
       bargap: 0,
       barmode: 'stack',
       legend: {font: {size: 16}},
       title: 'Estimated Presence of Italian Visitors in Florence per Day',
-      width: 1000,
+      autosize: true,
       titlefont: {size: 20},
       xaxis: {
         autorange: true,
@@ -323,7 +320,7 @@ function italianPresences() {
         type: 'linear'
       }
     };
-    Plotly.plot('italian-presences', {
+    Plotly.plot('plotly-italian-presence', {
       data: data,
       layout: layout
     });
@@ -480,7 +477,6 @@ function foreignPresences() {
       barmode: 'stack',
       legend: {font: {size: 16}},
       title: 'Estimated Presence of Foreign Visitors in Florence per Day',
-      width: 1000,
       titlefont: {size: 20},
       xaxis: {
         autorange: true,
@@ -498,7 +494,7 @@ function foreignPresences() {
         type: 'linear'
       }
     };
-    Plotly.plot('foreign-presences', {
+    Plotly.plot('plotly-foreign-presence', {
       data: data,
       layout: layout
     });
@@ -526,10 +522,10 @@ function foreignLengthStay() {
         font: {size: 16}
       },
       title: 'Foreign Visitor Length of Stay',
-      width: 500,
+      autosize: true,
       titlefont: {size: 20}
     };
-    Plotly.plot('foreign-length-stay', {
+    Plotly.plot('plotly-duration-stay-foreign', {
       data: data,
       layout: layout
     });
@@ -561,10 +557,10 @@ function italianLengthStay() {
         font: {size: 16}
       },
       title: 'Italian Visitor Length of Stay',
-      width: 500,
+      autosize: true,
       titlefont: {size: 20}
     };
-    Plotly.plot('italian-length-stay', {
+    Plotly.plot('plotly-duration-stay-italian', {
       data: data,
       layout: layout
     });
@@ -589,11 +585,11 @@ function foreignNumberOfTrips() {
         y: 1,
         font: {size: 16}
       },
+      autosize: true,
       title: 'Number of Visits to Florence for Each Italian Visitor',
       titlefont: {size: 20}
     };
-    layout = {title: 'Number of Visits to Florence for Each Foreign Visitor'};
-    Plotly.plot('foreign-number-trips', {
+    Plotly.plot('plotly-number-visits-foreign', {
       data: data,
       layout: layout
     });
@@ -618,19 +614,12 @@ function italianNumberOfTrips() {
         y: 1,
         font: {size: 16}
       },
+      autosize: true,
       title: 'Number of Visits to Florence for Each Italian Visitor',
       titlefont: {size: 20}
     };
-    Plotly.plot('italian-number-trips', {
+    Plotly.plot('plotly-number-visits-italian', {
       data: data,
       layout: layout
     });
 };
-
-totalPresences();
-foreignPresences();
-italianPresences();
-foreignNumberOfTrips();
-italianNumberOfTrips();
-foreignLengthStay();
-italianLengthStay();
