@@ -1,0 +1,163 @@
+button.accordion:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+button.accordion.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+button.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  border: none;
+  border-radius: 0px 0px 0px 0px;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+  border-width: 0 0 3px;
+  padding: 3px 10px;
+}
+
+button.accordion.active, button.accordion:hover {
+  background-color: #ddd; 
+}
+
+div.panel {
+  margin-top: 5px;
+  margin-left: 0px;
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  margin-bottom:15px;
+}
+
+.main-content {
+  float: right;
+  width: 70%;
+  padding-right: 150px;
+  padding-left: 50px;
+}
+
+.sidebar {
+  float: left;
+  width: 30%;
+  padding-left: 150px;
+  padding-top: 0px;
+  padding-right: 20px;
+  margin-bottom: 15px;"
+}
+
+.nav-tabs.nav-stacked {
+  border-bottom: 0;
+}
+
+.nav-stacked>li {
+    float: none;
+    background-color: #f6f6f6
+}
+
+.nav-stacked>li+li {
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.nav-tabs>li {
+    margin-bottom: -1px;
+}
+
+.nav-tabs.nav-stacked>li:first-child>a {
+    -webkit-border-top-right-radius: 4px;
+    border-top-right-radius: 4px;
+    -webkit-border-top-left-radius: 4px;
+    border-top-left-radius: 4px;
+    -moz-border-radius-topright: 4px;
+    -moz-border-radius-topleft: 4px;
+}
+
+.nav-tabs.nav-stacked>li:last-child>a {
+    -webkit-border-bottom-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -moz-border-radius-bottomleft: 4px;
+}
+
+.content-nav li.active a, .content-nav li.active a:hover {
+    border-left-color: #48b983;
+}
+
+.content-nav li.active a, .content-nav li.active a:hover {
+    background-color: transparent;
+    color: #555;
+    border-left-width: 2px;
+}
+
+.content-nav li.active {
+    background-color: #fff;
+}
+
+.nav-tabs.nav-stacked>li>a {
+    border: 1px solid #ddd;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.nav-tabs>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+
+.nav-stacked>li>a {
+    margin-right: 0;
+}
+
+.nav>li>a {
+    display: block;
+    color: #555;
+}
+
+.nav-tabs.nav-stacked>li>a:hover, .nav-tabs.nav-stacked>li>a:focus {
+    z-index: 2;
+    border-color: #ddd;
+}
+
+.content-nav li.active a, .content-nav li.active a:hover {
+    border-left-color: #e74c3c;
+}
+
+.content-nav li.active a, .content-nav li.active a:hover {
+    background-color: transparent;
+    color: black;
+    border-left-width: 2px;
+}
+
+.content-nav {
+    margin-top: 130px;
+    width: 220px;
+    padding-left: 20px;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+}
+
+.plot-section {
+  padding-top: 125px;
+  margin-top: -75px;
+}
+
+.plot-description {
+  margin-top: 20px;
+}
