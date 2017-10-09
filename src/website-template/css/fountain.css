@@ -65,6 +65,11 @@ h4 {
     font-size: 1.05em;
 }
 
+.controls {
+	width: 100%;
+	height: 300px;
+}
+
 .header {
 	padding: 15px 20px;
     box-shadow: 0 0 4px rgba(0,0,0,.15);
@@ -111,4 +116,85 @@ h4 {
 
 .tab-item.selected {
 	border-color: #333;
+}
+
+.input-toggle {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.input-toggle:before {
+  content: "to";
+  left: 3px;
+  color: #fff;
+}
+
+.input-toggle:after {
+  content: "from";
+  right: 0;
+}
+
+.input-toggle:before, .input-toggle:after {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  padding: 12px 16px;
+  font-size: 12px;
+  z-index: 0;
+}
+
+.input-toggle input {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.input-toggle input:checked ~ .input-toggle-handle {
+  box-shadow: inset 0 1px rgba(0, 0, 0, 0.15), inset 0 0 0 1px #41619f;
+}
+
+.input-toggle input:checked ~ .input-toggle-handle:before {
+  left: 50%;
+  box-shadow: inset 0 -1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px #41619f, 0 1px 2px rgba(0, 0, 0, 0.1), 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.input-toggle-handle {
+  display: block;
+  width: 92px;
+  height: 44px;
+  background-image: -webkit-linear-gradient(#7088b7, #a0b0cf);
+  background-image: linear-gradient(#7088b7, #a0b0cf);
+  border-radius: 10em;
+  -webkit-transition: background-image .4s ease;
+  transition: background-image .4s ease;
+  box-shadow: inset 0 1px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(0, 0, 0, 0.15), inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 44px 44px #fff;
+}
+
+.input-toggle-handle:before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 6px;
+  left: 8px;
+  width: 40px;
+  height: 32px;
+  -webkit-transition: .4s ease;
+  transition: .4s ease;
+  background: #fff;
+  border-radius: 10em;
+  box-shadow: inset 0 -1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1), 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.to-from-toggle {
+	position: absolute;
+	top: 80px;
+	right: 360px;
+	width: 100px;
+	height: 50px;
 }

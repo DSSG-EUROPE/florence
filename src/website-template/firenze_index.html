@@ -24,7 +24,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700%7CRaleway:700' rel='stylesheet' type='text/css'>
      <script src="./js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
   </head>
-  <body>
+  <body class="plot-page">
   	<div class="loader">
   		<div class="spinner">
 			  <div class="double-bounce1"></div>
@@ -34,129 +34,127 @@
 				
 	  <div class="nav-container">
   
-		<nav class="top-bar">
-			<div class="container">
-			
-				<div class="row utility-menu">
-					<div class="col-sm-12">
-						<div class="utility-inner clearfix">
-						</div>
-					</div>
-				</div><!--end of row-->
-			
-				<div class="row nav-menu">
-					<div class="col-sm-3 col-md-2 columns">
-						<a href="index.html">
-						</a>
-					</div>
-					
-					<div class="col-sm-9 col-md-10 columns">
-  					<ul class="menu">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="firenze_index.html">FirenzeCard</a></li>
-              <li><a href="cdr_index.html">Telecom</a></li>
-              <li><a href="fountain.html" target="_blank">Flows</a></li>
-              <li><a href="DSSG_Florence_report.pdf" target="_blank">Report</a></li>
-            </ul>
-					</div>
-				</div><!--end of row-->
-					
-				<div class="mobile-toggle">
-					<i class="icon icon_menu"></i>
-				</div>
-					
-			</div><!--end of container-->
-		</nav> 
-  
-    <div class="content-nav">
-      <ul class="nav nav-tabs nav-stacked primary">
-        <li class="active"><a href="#introduction">Introduction</a></li>
-        <li class=""><a href="#total-museum">Total museum entries and Firenzecard entries</a></li>
-        <li class=""><a href="#number-museums-visited">Number of museums visited</a></li>
-        <li class=""><a href="#card-activation">Card Activation</a></li>
-        <li class=""><a href="#entries-week">Museum entries per day of the week</a></li>
-        <li class=""><a href="#entries-hour">Museum entries per hour</a></li>
-        <li class=""><a href="#entries-day">Museum entries per day of the summer</a></li>
-      </ul>
-    </div> 
-        
-    <div class="main-container">
-			<section class="no-pad">
-        <div class="main-content">
-          <div id="introduction">
-            <h1>Firenzecard</h1>
-            <p>
-              The Firenzecard is an electronic card  for facilitating visits to the cultural heritage sites of the city of Florence. Card holders are automatically provided with general admission, tickets for exhibitions, and priority access for every museum of the Firenzecard circuit with no reservations required. The card allows its users to visit 72 key tourist attractions and museums in Florence, and is active for a duration of 72 hours from the first use. EU Minors under 18 years of age are granted free admission on the cards of an accompanying adult family member.
-            </p>
-            <p>
-              The Firenzecard dataset used for this study consisted of attraction entry information of Firenzecard users during the time period of 1st June 2016 until 30th September 2016. This accounts for a totality of 51.031 cards. Since minors can enter along with adults on a Firenzecard, the number of cards and cardholders is not the same as the total number of people who enter on the card. There are a total of 58.411 people who entered museums with Firenzecards over the summer.</p>
-            <p>
-              A data entry log is created each time a person uses their Firenzecard to enter a museum or touristic attraction part of the circuit of 72 tourist attractions of the card. Each entry contains: an anonymized user identification number, the date and time of entry,a field detailing whether or not the entry was the first entry to be made on the card, the name of the tourist attraction visited, and the number of minors also entering on a card. The entry time for all minors entering on a single card is identical (i.e., a card   scan is not separately recorded for each entering minor).
-            </p>
-            <p>
-              Exploratory analysis of the Firenzecard dataset reveals the patterns of usage behaviour of all 51.031 Firenzecard holders during the time period of 1st June 2016 until 30th September 2016. The analysis is structured around the main key questions concerning this subpopulation of museum visitors.
-            </p>
-          </div>
+  		<nav class="top-bar">
+  			<div class="container">
+  			
+  				<div class="row utility-menu">
+  					<div class="col-sm-12">
+  						<div class="utility-inner clearfix">
+  						</div>
+  					</div>
+  				</div><!--end of row-->
+  			
+  				<div class="row nav-menu">
+  					
+  					<div class="col-sm-9 col-md-10 columns">
+    					<ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="firenze_index.html">FirenzeCard</a></li>
+                <li><a href="cdr_index.html">Telecom</a></li>
+                <li><a href="fountain.html" target="_blank">Flows</a></li>
+                <li><a href="DSSG_Florence_report.pdf" target="_blank">Report</a></li>
+              </ul>
+  					</div>
+  				</div><!--end of row-->
+  					
+  				<div class="mobile-toggle">
+  					<i class="icon icon_menu"></i>
+  				</div>
+  					
+  			</div><!--end of container-->
+  		</nav> 
+    </div>
 
-          <div id="total-museum" class="plot-section">
-            <h3>Total museum entries and Firenzecard entries<h3>
-            <p class="plot-description">
-              The total museum entries dataset provided is a monthly aggregate of the number of visitor entries at national state museums, allowing to make broader estimates of the total count of tourists visiting attractions during the period of 1st June until 30th September 2016. There is a large but not total overlap between Firenzecard sites and state museum sites. Most visitors of museums and tourist attractions purchase the normal museum tickets without the card, however approximately 10% of all museum visitors recorded in the summer 2016 entered on the Firenzecard. This graph shows us the total number of museum entries for both the State Museum dataset and the Firenzecard dataset, over the period of June 1 - September 30 2016.
-            </p>
-            <iframe width="800" height="500" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/426.embed?share_key=ALTSeJl0uf6L7Qn8yd7eJt"></iframe>
-          </div>
+    <div>   
+      <div class="main-container">
+  			<section class="no-pad">
+          <div class="main-content">
+            <div id="introduction">
+              <h1>Firenzecard</h1>
+              <p>
+                The Firenzecard is an electronic card  for facilitating visits to the cultural heritage sites of the city of Florence. Card holders are automatically provided with general admission, tickets for exhibitions, and priority access for every museum of the Firenzecard circuit with no reservations required. The card allows its users to visit 72 key tourist attractions and museums in Florence, and is active for a duration of 72 hours from the first use. EU Minors under 18 years of age are granted free admission on the cards of an accompanying adult family member.
+              </p>
+              <p>
+                The Firenzecard dataset used for this study consisted of attraction entry information of Firenzecard users during the time period of 1st June 2016 until 30th September 2016. This accounts for a totality of 51.031 cards. Since minors can enter along with adults on a Firenzecard, the number of cards and cardholders is not the same as the total number of people who enter on the card. There are a total of 58.411 people who entered museums with Firenzecards over the summer.</p>
+              <p>
+                A data entry log is created each time a person uses their Firenzecard to enter a museum or touristic attraction part of the circuit of 72 tourist attractions of the card. Each entry contains: an anonymized user identification number, the date and time of entry,a field detailing whether or not the entry was the first entry to be made on the card, the name of the tourist attraction visited, and the number of minors also entering on a card. The entry time for all minors entering on a single card is identical (i.e., a card   scan is not separately recorded for each entering minor).
+              </p>
+              <p>
+                Exploratory analysis of the Firenzecard dataset reveals the patterns of usage behaviour of all 51.031 Firenzecard holders during the time period of 1st June 2016 until 30th September 2016. The analysis is structured around the main key questions concerning this subpopulation of museum visitors.
+              </p>
+            </div>
 
-          <div id="entries-per-museum" class="plot-section">
-            <h3>Entries per museum<h3>
-            <p class="plot-description">
-              This graph shows us the number of museums visited per card, over the period of June 1 - September 30 2016. We observe that most Firenzecard users visit 6 museums.
-            </p>
-            <iframe width="800" height="500" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/433.embed?share_key=aoL9FNs7XX3DvxvJLC1foJ"></iframe>
-          </div>
+            <div id="total-museum" class="plot-section">
+              <h3>Total museum entries and Firenzecard entries<h3>
+              <p class="plot-description">
+                The total museum entries dataset provided is a monthly aggregate of the number of visitor entries at national state museums, allowing to make broader estimates of the total count of tourists visiting attractions during the period of 1st June until 30th September 2016. There is a large but not total overlap between Firenzecard sites and state museum sites. Most visitors of museums and tourist attractions purchase the normal museum tickets without the card, however approximately 10% of all museum visitors recorded in the summer 2016 entered on the Firenzecard. This graph shows us the total number of museum entries for both the State Museum dataset and the Firenzecard dataset, over the period of June 1 - September 30 2016.
+              </p>
+              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/426.embed?share_key=ALTSeJl0uf6L7Qn8yd7eJt&link=false"></iframe>
+            </div>
 
-          <div id="number-museums-visited" class="plot-section">
-            <h3>Number of museums visited</h3>
-            <p class="plot-description">
-              This graph shows us the number of museums visited per card, over the period of June 1 - September 30 2016. We observe that most Firenzecard users visit 6 museums.
-            </p>
-            <iframe width="800" height="500" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/148.embed?share_key=tGjLEepDtyfbRwI5eOfkvJ"></iframe>
-          </div>
+            <div id="entries-per-museum" class="plot-section">
+              <h3>Entries per museum<h3>
+              <p class="plot-description">
+                This graph shows us the number of museums visited per card, over the period of June 1 - September 30 2016. We observe that most Firenzecard users visit 6 museums.
+              </p>
+              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/433.embed?share_key=aoL9FNs7XX3DvxvJLC1foJ&link=false"></iframe>
+            </div>
 
-          <div id="card-activation" class="plot-section">
-            <h3>Card Activation</h3>          
-            <p class="plot-description">
-              This graph shows us the most common days of FirenzeCard activation, over the period of June 1 - September 30 2016. Two of the most popular museums to first use a card are the Uffizi and the Accademia. Given that both of those museums are closed on Mondays, we see an expected surge of activations on Tuesday. This has broader implications for the types of people buying Firenzecards; since many users want to use their card to obtain priority entry at the top museums, people are less likely to want to use a Firenzecard if their trip to Florence includes a Monday. Additionally, this large surge in activations on Tuesdays can partially account for the lowered entry rates with the Firenzecard we see on Friday, Saturday, Sunday,   and   Monday   at   many   museums.
-            </p>
-            <iframe width="800" height="500" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/487.embed?share_key=5VcYR5R6YVIPeu45CyqzW8"></iframe>  
-          </div>
+            <div id="number-museums-visited" class="plot-section">
+              <h3>Number of museums visited</h3>
+              <p class="plot-description">
+                This graph shows us the number of museums visited per card, over the period of June 1 - September 30 2016. We observe that most Firenzecard users visit 6 museums.
+              </p>
+              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/148.embed?share_key=tGjLEepDtyfbRwI5eOfkvJ&link=false"></iframe>
+            </div>
 
-          <div id="entries-week" class="plot-section">
-            <h3>Museum entries per day of the week</h3>
-            <p class="plot-description">
-              This graph shows us the total number of museum entries at different FirenzeCard attractions, over the period of June 1 - September 30 2016.
-            </p>
-            <iframe width="800" height="500" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/417.embed?share_key=LWI91JrIbVRls7HeRDoNjt"></iframe>
-          </div>
+            <div id="card-activation" class="plot-section">
+              <h3>Card Activation</h3>          
+              <p class="plot-description">
+                This graph shows us the most common days of FirenzeCard activation, over the period of June 1 - September 30 2016. Two of the most popular museums to first use a card are the Uffizi and the Accademia. Given that both of those museums are closed on Mondays, we see an expected surge of activations on Tuesday. This has broader implications for the types of people buying Firenzecards; since many users want to use their card to obtain priority entry at the top museums, people are less likely to want to use a Firenzecard if their trip to Florence includes a Monday. Additionally, this large surge in activations on Tuesdays can partially account for the lowered entry rates with the Firenzecard we see on Friday, Saturday, Sunday,   and   Monday   at   many   museums.
+              </p>
+              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/487.embed?share_key=5VcYR5R6YVIPeu45CyqzW8&link=false"></iframe>  
+            </div>
 
-          <div id="entries-hour" class="plot-section">
-            <h3>Museum entries per hour</h3>
-            <p>
-              This graph shows us the total number of hourly museum entries at different FirenzeCard attractions, over the period of June 1 - September 30 2016. Starting at 8am, a large number of tourists are already visiting attractions. It is also less common to visit museums later in the afternoon and evening. This is due in part to the fact that there are fewer museums open at these times. One would assume that a visitor would not want to enter a museum too close to its closing time.
-            </p>
-            <iframe width="800" height="500" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/326.embed?share_key=z97J3oziXhPcAIihPIDsBM"></iframe>
-          </div>
+            <div id="entries-week" class="plot-section">
+              <h3>Museum entries per day of the week</h3>
+              <p class="plot-description">
+                This graph shows us the total number of museum entries at different FirenzeCard attractions, over the period of June 1 - September 30 2016.
+              </p>
+              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/417.embed?share_key=LWI91JrIbVRls7HeRDoNjt&link=false"></iframe>
+            </div>
 
-          <div id="entries-day" class="plot-section">
-            <h3>Museum entries per day of the summer</h3>
-            <p>
-              This graph shows us the total number of museum entries at different FirenzeCard attractions, over the period of June 1 - September 30 2016. The peak number of entries for Firenzecard holders is in August.
-            </p>
-            <iframe width="800" height="500" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/415.embed?share_key=ukMQk6WjJfS7IUGISzjxea"></iframe>
-          </div>
+            <div id="entries-hour" class="plot-section">
+              <h3>Museum entries per hour</h3>
+              <p>
+                This graph shows us the total number of hourly museum entries at different FirenzeCard attractions, over the period of June 1 - September 30 2016. Starting at 8am, a large number of tourists are already visiting attractions. It is also less common to visit museums later in the afternoon and evening. This is due in part to the fact that there are fewer museums open at these times. One would assume that a visitor would not want to enter a museum too close to its closing time.
+              </p>
+              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/326.embed?share_key=z97J3oziXhPcAIihPIDsBM&link=false"></iframe>
+            </div>
 
-        </div>
-				
-      </section>
+            <div id="entries-day" class="plot-section">
+              <h3>Museum entries per day of the summer</h3>
+              <p>
+                This graph shows us the total number of museum entries at different FirenzeCard attractions, over the period of June 1 - September 30 2016. The peak number of entries for Firenzecard holders is in August.
+              </p>
+              <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="http://plot.ly/~qiweihan/415.embed?share_key=ukMQk6WjJfS7IUGISzjxea&link=false"></iframe>
+            </div>
+
+          </div>
+  				
+        </section>
+      </div>
+      <div class="content-nav">
+        <ul class="nav nav-tabs nav-stacked primary">
+          <li class="tab"><a href="#introduction">Introduction</a></li>
+          <li class="tab"><a href="#total-museum">Total museum entries and Firenzecard entries</a></li>
+          <li class="tab"><a href="#number-museums-visited">Number of museums visited</a></li>
+          <li class="tab"><a href="#card-activation">Card Activation</a></li>
+          <li class="tab"><a href="#entries-week">Museum entries per day of the week</a></li>
+          <li class="tab"><a href="#entries-hour">Museum entries per hour</a></li>
+          <li class="tab"><a href="#entries-day">Museum entries per day of the summer</a></li>
+        </ul>
+      </div> 
     </div>
 
 		<div class="footer-container">
@@ -185,20 +183,51 @@
       });
     </script>
     <script>
-      var acc = document.getElementsByClassName("accordion");
-      var i;
+      // Cache selectors
+      var lastId,
+      topMenu = $(".content-nav"),
+      topMenuHeight = 0,
+      // All list items
+      menuItems = topMenu.find("a"),
+      // Anchors corresponding to menu items
+      scrollItems = menuItems.map(function(){
+        var item = $($(this).attr("href"));
+        if (item.length) { return item; }
+      });
 
-      for (i = 0; i < acc.length; i++) {
-          acc[i].onclick = function(){
-              this.classList.toggle("active");
-              var panel = this.nextElementSibling;
-              if (panel.style.display === "block") {
-                  panel.style.display = "none";
-              } else {
-                  panel.style.display = "block";
-              }
-          }
-      }
+      // Bind click handler to menu items
+      // so we can get a fancy scroll animation
+      menuItems.click(function(e){
+        var href = $(this).attr("href"),
+            offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+1;
+        $('html, body').stop().animate({ 
+            scrollTop: offsetTop
+        }, 300);
+        e.preventDefault();
+      });
+
+      // Bind to scroll
+      $(window).scroll(function(){
+         // Get container scroll position
+         var fromTop = $(this).scrollTop()+topMenuHeight;
+         
+         // Get id of current scroll item
+         var cur = scrollItems.map(function(){
+           if ($(this).offset().top < fromTop)
+             return this;
+         });
+         // Get the id of the current element
+         cur = cur[cur.length-1];
+         var id = cur && cur.length ? cur[0].id : "";
+         
+         if (lastId !== id) {
+             lastId = id;
+             // Set/remove active class
+             menuItems
+               .parent().removeClass("active")
+               .end().filter("[href='#"+id+"']").parent().addClass("active");
+         }                   
+      });
     </script>
   </body>
 </html>
