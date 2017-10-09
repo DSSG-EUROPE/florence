@@ -3,228 +3,240 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        
-        <title>DSSG EUROPE - Call Detail Records Analysis</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link href="../../../Desktop/website/css/flexslider.min.css" rel="stylesheet" type="text/css" media="all"/>
-        <link href="../../../Desktop/website/css/line-icons.min.css" rel="stylesheet" type="text/css" media="all"/>
-        <link href="../../../Desktop/website/css/elegant-icons.min.css" rel="stylesheet" type="text/css" media="all"/>
-        <link href="../../../Desktop/website/css/lightbox.min.css" rel="stylesheet" type="text/css" media="all"/>
-        <link href="../../../Desktop/website/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all"/>
-        <link href="../../../Desktop/website/css/theme.css" rel="stylesheet" type="text/css" media="all"/>
-        <link href="../../../Desktop/website/css/custom.css" rel="stylesheet" type="text/css" media="all"/>
-        <!--[if gte IE 9]>
-        <link rel="stylesheet" type="text/css" href="../../../Desktop/website/css/ie9.css"/>
-        <![endif]-->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700%7CRaleway:700' rel='stylesheet' type='text/css'>
-         <script src="../../../Desktop/website/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-<style>
-button.accordion:after {
-    content: '\02795'; /* Unicode character for "plus" sign (+) */
-    font-size: 13px;
-    color: #777;
-    float: right;
-    margin-left: 5px;
-}
-
-button.accordion.active:after {
-    content: "\2796"; /* Unicode character for "minus" sign (-) */
-}
-button.accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 5px;
-    width: 100%;
-    border: none;
-    border-radius: 0px 0px 0px 0px;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-    transition: 0.4s;
-    border-width: 0 0 3px;
-    padding: 3px 10px;
-}
-
-button.accordion.active, button.accordion:hover {
-    background-color: #ddd; 
-}
-
-div.panel {
-  margin-top: 5px;
-    margin-left: 0px;
-    padding: 0 18px;
-    display: none;
-    background-color: white;
-        margin-bottom:15px;
-}
-</style>
-    </head>
-    <body>
-    	<div class="loader">
-    		<div class="spinner">
-			  <div class="double-bounce1"></div>
-			  <div class="double-bounce2"></div>
-			</div>
-    	</div>
-				
-		<div class="nav-container">
+  <head>
+    <meta charset="utf-8">
     
-			<nav class="top-bar">
-				<div class="container">
-				
-					<div class="row utility-menu">
-						<div class="col-sm-12">
-							<div class="utility-inner clearfix">
-							</div>
-						</div>
-					</div><!--end of row-->
-				
-				
-					<div class="row nav-menu">
-						<div class="col-sm-3 col-md-2 columns">
-							<a href="../../../Desktop/website/index.html">
-							</a>
-						</div>
-					
-						<div class="col-sm-9 col-md-10 columns">
-							<ul class="menu">
-                                                      
-                                         <li><a href="../../../Desktop/website/index.html">Home  </a></li>
-                                <li><a href="../../../Desktop/website/firenze_index.html">FirenzeCard Insights</a></li>
-                                <li><a href="cdr_index.html">Call Detail Records Insights</a></li>
-                                <li><a href="../../../Desktop/website/fountain.html" target="_blank">Visualizations  </a></li>
-                                <li><a href="../../../Desktop/website/DSSG_Florence_report.pdf" target="_blank">Report  </a></li>
-                <li><a href="https://dssg.uchicago.edu/europe/">DSSG Europe</a></li>
-
-                            </ul>
-						</div>
-					</div><!--end of row-->
-					
-					<div class="mobile-toggle">
-						<i class="icon icon_menu"></i>
-					</div>
-					
-				</div><!--end of container-->
-			</nav>
+    <title>DSSG EUROPE - Call Detail Records Analysis</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="./css/flexslider.min.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="./css/line-icons.min.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="./css/elegant-icons.min.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="./css/lightbox.min.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="./css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="./css/theme.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="./css/custom.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--[if gte IE 9]>
+    <link rel="stylesheet" type="text/css" href="../../../Desktop/website/css/ie9.css"/>
+    <![endif]-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700%7CRaleway:700' rel='stylesheet' type='text/css'>
+    <script src="./js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+  </head>
+  <body class="plot-page">
+  	<div class="loader">
+  		<div class="spinner">
+		  <div class="double-bounce1"></div>
+		  <div class="double-bounce2"></div>
 		</div>
+  	</div>
+			
+    <div class="nav-container">
+  
+      <nav class="top-bar">
+        <div class="container">
         
+          <div class="row utility-menu">
+            <div class="col-sm-12">
+              <div class="utility-inner clearfix">
+              </div>
+            </div>
+          </div><!--end of row-->
         
-        <div class="main-container">
-			<section class="no-pad">
-                            <div style="float:right;width:70%;">
-<!--                      <div class="container"> -->
-<!-- 								<div class="row"> -->
-                                   <iframe name = 'plot' width="800" height="500" frameborder="0" scrolling="yes" src="../../../Desktop/website/cdr_intro.html"></iframe>
-                                </div>
-<!--                             </div> -->
-<!--                             </div> -->
-                            <div style="float:left;width:30%;padding-left:30px;padding-top:0px;padding-right:20px; margin-bottom:15px;">
-                                <div>
-                                     <!-- <button onclick=myFunction(); class="dropbtn">Analyses</button>                  -->
-                                
-<div>
-    <button class="accordion">Total estimated daily presences</button>
-<div class="panel">
-  <a href="https://plot.ly/~qiweihan/250.embed?share_key=WtUQa7FuzL6C1StwF3OYQC" target="plot">  
-  <p>Open Graph</p></a>
-  <p>The total estimated presences per day for all types of people in the city of Florence during the summer. We can see that on an average day, one third of the people in the city are tourists. That ratio increases in the month of August as foreign tourism remains somewhat constant, whereas the resident population makes a dip. We can also see cyclic activity that is likely due in part to reduced calling on weekends.</p>
-</div><br>
-      <button class="accordion">Estimated daily presence of foreign visitors</button>
-<div class="panel">
-  <a href="https://plot.ly/~qiweihan/246.embed?share_key=IEEhKMOtIGJzLit2Ri4kdK"  target="plot">
-  <p>Open Graph</p></a>
-  <p>The estimates for foreign presence. The breaks are done by region of the world, with the most common tourist countries (The United States, France, Germany, Spain, and China) plotted separately instead of aggregated into their region. This shows that peak visiting months are not the same for every country.</p>
-</div><br>
+          <div class="row nav-menu">
+            
+            <div class="col-sm-9 col-md-10 columns">
+              <ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="firenze_index.html">FirenzeCard</a></li>
+                <li><a href="cdr_index.html">Telecom</a></li>
+                <li><a href="fountain.html" target="_blank">Flows</a></li>
+                <li><a href="DSSG_Florence_report.pdf" target="_blank">Report</a></li>
+              </ul>
+            </div>
+          </div><!--end of row-->
+            
+          <div class="mobile-toggle">
+            <i class="icon icon_menu"></i>
+          </div>
+            
+        </div><!--end of container-->
+      </nav> 
+    </div>
+      
+      
+    <div class="main-container">
+		  <section class="no-pad">
+        <div class="main-content">
+          <div id="introduction">
+            <h1>Telecom Data</h1>
+            <p>
+              A Call Detail Record is created whenever a phone call is placed or received from a mobile phone on a given provider’s network. These are also called circuit switching data, as within telecommunications engineering, placing or receiving a call involves a switch of an electronic circuit. These records contain:
 
+              <br><br>
 
-<button class="accordion">Estimated daily presence of Italian visitors</button>
-<div class="panel">
-  <a href="https://plot.ly/~qiweihan/244.embed?share_key=iXHOGtjCxeUivQBfoxDxqq" target="plot"><p>Open Graph</p></a>
-  <p>The estimates for presence of Italian visitors. We see that the majority of Italian visitors to Florence come from elsewhere in Tuscany.</p>
-</div><br>
+              - the anonymized user identifier for the customer
 
-<button class="accordion">Number of visits of each foreign visitor</button>
-<div class="panel">
-  <a href="https://plot.ly/~qiweihan/445.embed?share_key=iixTNUq0D9b1g7sh3YhU6Q" target="plot"><p>Open Graph</p></a>
-  <p>The breakdown of the estimates for number of visits foreign visitors make to the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.</p>
-</div><br>
+              <br><br>
 
-<button class="accordion">Number of visits of each Italian visitor</button>
-<div class="panel">
-  <a href="https://plot.ly/~qiweihan/447.embed?share_key=Thtu3W58waDpqphPczgH3B" target="plot"><p>Open Graph</p></a>
-  <p>The breakdown of the estimates for number of visits italian visitors make to the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.</p>
-</div><br>
+              - the nationality or home region in Italy of the user’s SIM card
 
-<button class="accordion">Duration of stay of foreign visitors</button>
-<div class="panel">
-  <a href="https://plot.ly/~qiweihan/443.embed?share_key=kEUD1cQn7gZmoAtCN2vNaN" target="plot"><p>Open Graph</p></a>
-  <p>The estimates for how many days foreign visitors stay in the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.</p>
-</div><br>
+              <br><br>
 
-<button class="accordion">Duration of stay of Italian visitors</button>
-<div class="panel">
-  <a href="https://plot.ly/~qiweihan/439.embed?share_key=YtTwbxvPjL80LV6dCaTvdf" target="plot"><p>Open Graph</p></a>
-  <p>The estimates for how many days Italian visitors stay in the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.</p>
-</div><br>
+              - the date and time of the  event
 
-  </div>
-</div>
-                               
-                       <!--        <iframe name = 'description' width="200" height="300" frameborder="0" scrolling="no" src="">
-   </iframe> -->
+              <br><br>
 
-                                </div>
-                </div>
-				
-			</section>
-		</div>
+              - the coordinates of the tower that handled the call
 
-		<div class="footer-container">
-			<footer class="bg-primary short-2">
-			</footer>
-		</div>
-				
-		<script src="../../../Desktop/website/js/jquery.min.js"></script>
-        <script src="../../../Desktop/website/js/jquery.plugin.min.js"></script>
-        <script src="../../../Desktop/website/js/bootstrap.min.js"></script>
-        <script src="../../../Desktop/website/js/jquery.flexslider-min.js"></script>
-        <script src="../../../Desktop/website/js/smooth-scroll.min.js"></script>
-        <script src="../../../Desktop/website/js/skrollr.min.js"></script>
-        <script src="../../../Desktop/website/js/spectragram.min.js"></script>
-        <script src="../../../Desktop/website/js/scrollReveal.min.js"></script>
-        <script src="../../../Desktop/website/js/isotope.min.js"></script>
-        <script src="../../../Desktop/website/js/twitterFetcher_v10_min.js"></script>
-        <script src="../../../Desktop/website/js/lightbox.min.js"></script>
-        <script src="../../../Desktop/website/js/jquery.countdown.min.js"></script>
-        <script src="../../../Desktop/website/js/scripts.js"></script>
-            <script>
-                $('a.yourlink').click(function(e) {
-    e.preventDefault();
-    window.open('http://yoururl1.com');
-    window.open('http://yoururl2.com');
-});
-            </script>
-            <script>
-var acc = document.getElementsByClassName("accordion");
-var i;
+              <br><br>
+              
+              ** <i>CDRs can potentially contain text message (SMS) data as well, although SMS records were not present in our data.</i>
+            </p>
+            <p>
+              In this project, we analyzed CDR data from the time period between June 1 to September 30 2016. The data contained records for foreign or Italian tourists, covering the span of their visit to the province of Florence as well as 3 days before and after their visit. The Collective Sensing organisation proceeded to removal of Florentine residents from the dataset prior to our analysis of the data, by filtering out people who consistently appeared in Florence during nighttimes over a given period of time. This process was done to protect the anonymity of residents, since call records are sensitive information. Even though the call records are anonymous, the ability to see the nightly travel patterns of users at night and during the day could, in theory, partially allow to identify individuals.
+            </p>
+            <p>
+              With the help of CS Research, we analyzed the anonymized call activity and behavior in Florence of Vodaphone users over the summer of 2016. The analyses show the number of presences in Florence over the summer of three categories of people: Italian visitors, foreigners, and residents. The values for presences are estimated from the dataset based on multiple factors, such as call behavior trends, local demographics, and cell phone carrier market share. Presence is defined as the number of unique people seen in Florence over 1 day independent of the duration of stay, rather than the number of people present at one point in time (which will be strictly less than the presences). Italian visitors are defined as persons who own SIM cards from Italy and whose home is outside of the city of Florence. Residents are defined as persons who live in the city of Florence. This distinction can be made by looking at the home region associated with the SIM card and from the calling patterns of the customer. Foreigners are defined as persons with foreign SIM cards visiting the city of Florence, with the nationality coming from the nationality of the SIM card. Note that foreigners who buy Italian SIM cards on arrival for use will appear in the data to be Italian.
+            </p>
+          </div>
 
-for (i = 0; i < acc.length; i++) {
-    acc[i].onclick = function(){
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.display === "block") {
-            panel.style.display = "none";
-        } else {
-            panel.style.display = "block";
-        }
-    }
-}
-</script>
-    </body>
+          <div id="total-presence" class="plot-section">
+            <h3>Total estimated daily presences</h3>
+            <p>
+              The total estimated presences per day for all types of people in the city of Florence during the summer. We can see that on an average day, one third of the people in the city are tourists. That ratio increases in the month of August as foreign tourism remains somewhat constant, whereas the resident population makes a dip. We can also see cyclic activity that is likely due in part to reduced calling on weekends.
+            </p>
+            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/250.embed?share_key=WtUQa7FuzL6C1StwF3OYQC&link=false"></iframe>
+          </div>
+
+          <div id="foreign-presence" class="plot-section">
+            <h3>Estimated daily presence of foreign visitors</h3>
+            <p>
+              The estimates for foreign presence. The breaks are done by region of the world, with the most common tourist countries (The United States, France, Germany, Spain, and China) plotted separately instead of aggregated into their region. This shows that peak visiting months are not the same for every country.
+            </p>
+            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/246.embed?share_key=IEEhKMOtIGJzLit2Ri4kdK&link=false"></iframe>
+          </div>
+
+          <div id="italian-presence" class="plot-section">
+            <h3>Estimated daily presence of Italian visitors</h3>
+            <p>
+              The estimates for presence of Italian visitors. We see that the majority of Italian visitors to Florence come from elsewhere in Tuscany.
+            </p>
+            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/244.embed?share_key=iXHOGtjCxeUivQBfoxDxqq&link=false"></iframe>
+          </div>
+
+          <div id="number-visits-foreign" class="plot-section">
+            <h3>Number of visits of each foreign visitor</h3>
+            <p>
+              The breakdown of the estimates for number of visits foreign visitors make to the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.
+            </p>
+            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/445.embed?share_key=iixTNUq0D9b1g7sh3YhU6Q&link=false"></iframe>
+          </div>
+
+          <div id="number-visits-italian" class="plot-section">
+            <h3>Number of visits of each Italian visitor</h3>
+            <p>
+              The breakdown of the estimates for number of visits italian visitors make to the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.
+            </p>
+            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/447.embed?share_key=Thtu3W58waDpqphPczgH3B&link=false"></iframe>
+          </div>
+
+          <div id="duration-stay-foreign" class="plot-section">
+            <h3>Duration of stay of foreign visitors</h3>
+            <p>
+              The estimates for how many days foreign visitors stay in the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.
+            </p>
+            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/443.embed?share_key=kEUD1cQn7gZmoAtCN2vNaN&link=false"></iframe>
+          </div>
+
+          <div id="duration-stay-italian" class="plot-section">
+            <h3>Duration of stay of Italian visitors</h3>
+            <p>
+              The estimates for how many days Italian visitors stay in the city of Florence during the summer months of June 1st, 2016 through September 30th, 2016.
+            </p>
+            <iframe class="plot-iframe" frameborder="0" scrolling="yes" src="https://plot.ly/~qiweihan/439.embed?share_key=YtTwbxvPjL80LV6dCaTvdf&link=false"></iframe>
+          </div>
+        </div> 
+		</section>
+	</div>
+
+  <div class="content-nav">
+    <ul class="nav nav-tabs nav-stacked primary">
+      <li class="tab"><a href="#introduction">Introduction</a></li>
+      <li class="tab"><a href="#total-presence">Total museum entries and Firenzecard entries</a></li>
+      <li class="tab"><a href="#daily-presence">Number of museums visited</a></li>
+      <li class="tab"><a href="#card-activation">Card Activation</a></li>
+      <li class="tab"><a href="#entries-week">Museum entries per day of the week</a></li>
+      <li class="tab"><a href="#entries-hour">Museum entries per hour</a></li>
+      <li class="tab"><a href="#entries-day">Museum entries per day of the summer</a></li>
+    </ul>
+  </div> 
+
+	<div class="footer-container">
+		<footer class="bg-primary short-2">
+		</footer>
+	</div>
+			
+	<script src="./js/jquery.min.js"></script>
+  <script src="./js/jquery.plugin.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/jquery.flexslider-min.js"></script>
+  <script src="./js/smooth-scroll.min.js"></script>
+  <script src="./js/skrollr.min.js"></script>
+  <script src="./js/spectragram.min.js"></script>
+  <script src="./js/scrollReveal.min.js"></script>
+  <script src="./js/isotope.min.js"></script>
+  <script src="./js/twitterFetcher_v10_min.js"></script>
+  <script src="./js/lightbox.min.js"></script>
+  <script src="./js/jquery.countdown.min.js"></script>
+  <script src="./js/scripts.js"></script>
+  <script>
+    // Cache selectors
+    var lastId,
+    topMenu = $(".content-nav"),
+    topMenuHeight = 0,
+    // All list items
+    menuItems = topMenu.find("a"),
+    // Anchors corresponding to menu items
+    scrollItems = menuItems.map(function(){
+      var item = $($(this).attr("href"));
+      if (item.length) { return item; }
+    });
+
+    // Bind click handler to menu items
+    // so we can get a fancy scroll animation
+    menuItems.click(function(e){
+      var href = $(this).attr("href"),
+          offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+1;
+      $('html, body').stop().animate({ 
+          scrollTop: offsetTop
+      }, 300);
+      e.preventDefault();
+    });
+
+    // Bind to scroll
+    $(window).scroll(function() {
+      // Get container scroll position
+      var fromTop = $(this).scrollTop()+topMenuHeight;
+       
+      // Get id of current scroll item
+      var cur = scrollItems.map(function(){
+      if ($(this).offset().top < fromTop)
+       return this;
+      });
+      // Get the id of the current element
+      cur = cur[cur.length-1];
+      var id = cur && cur.length ? cur[0].id : "";
+       
+      if (lastId !== id) {
+        lastId = id;
+        // Set/remove active class
+        menuItems
+          .parent().removeClass("active")
+          .end().filter("[href='#"+id+"']").parent().addClass("active");
+      }                   
+    });
+    </script>
+  </body>
 </html>
 				

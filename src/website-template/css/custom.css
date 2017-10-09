@@ -156,13 +156,13 @@
   margin: auto;
 }
 
-.plot-page .nav-menu .columns {
+.nav-menu .columns {
   width: 100%;
   text-align: center;
 }
 
 @media only screen and (max-width: 767px) and (min-width: 320px) {
-  .plot-page .nav-menu .columns {
+  .nav-menu .columns {
     text-align: left;
   }
 }
