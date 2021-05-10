@@ -96,7 +96,7 @@ This project was conducted as part of Data Science for Social Good (DSSG) Europe
 the twelve week summer fellowship can be found here:
 https://dssg.uchicago.edu/europe/
 
-**DSSG Fellows**: Io Flament, Momim Malik, Cristina Lozano
+**DSSG Fellows**: Io Flament, Cristina Lozano, Momin Malik
 
 **Technical Mentor**: Qiwei Han
 
