@@ -4,7 +4,9 @@
 
 ## Data-Driven Planning for Sustainable Tourism in Tuscany
 
-Project website with interactive visualizations: http://dssg-eu.org/florence
+Project website with interactive visualizations: http://dssg-eu.org/florence. 
+
+> Note that images, formatting, and some interactive visualizations are currently not working on the site, because of a change in hosting. We are working to move the hosting service in order to restore the website, but in the mean time, the code underyling the website is still available in this repo https://github.com/DSSG-EUROPE/florence/tree/master/src/website-template. 
 
 ### Project & Partners
 Mass tourism is at a tipping point. Larger populations now have the budget for travel and the awareness of historic destinations. High-speed trains and low-cost airlines give greater mobility options. Online resources such as travel information sites, social media, and mapping applications help people aspire to destinations and plan itineraries. Cities working with analog management of their cultural resources may be ill-equipped to react to new patterns of mass tourism. Local, regional, and national governments are asking how they can accommodate tourists and sustain the sector while maintaining the quality of life for residents. 
@@ -82,7 +84,7 @@ optourism/
 |    ├── paths/
 |
 ├── docs/
-|   | |_Florence Final Report.pdf
+|   | |_DSSG_Florence_report.pdf
 |
 ├── dev/
 |   ├── notebooks/
@@ -120,8 +122,7 @@ We would like to acknowledge all of the hard work of our partners, data partners
 - Amazon Web Services for the Cloud for Research Credits.
 
 
-*All​ ​analysis​ ​and​ ​opinions​ ​contained​ ​here​ ​are​ ​the​ ​authors’​ ​own,​ ​and​ ​are​ ​not​ ​necessarily​ ​held​ ​or
-endorsed​ ​by​ ​any​ ​of​ ​the​ ​partners​ ​or​ ​data-providing​ ​agencies.*
+*All analysis and opinions contained here are the authors’ own, and are not necessarily held or endorsed by any of the partners or data-providing agencies.*
 
 ### License
 This project is licensed under the MIT License - see the LICENSE.md file for details
