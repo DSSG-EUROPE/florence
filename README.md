@@ -30,28 +30,23 @@ Refer to our final report in `docs/` to get a sense of the key questions we atte
 
 #### Tourists mouvements throughout Florence
 
-We created interactive visualizations using Uber's DECK-GL library aggregate the movements of users from the different data sources, in time and space, and create 3 dimensional representations of crowding in the city.
+We created interactive map visualizations using Uber's DECK-GL library aggregate the movements of users from the different data sources, in time and space, and create 3 dimensional representations of crowding in the city.
 
 <p align="center">
-  <img src="./transitions.gif"><br>
+  <img src="./transitions.gif" width="75%" height="75%"><br>
   <strong>
   </strong>
 </p>
 
 #### Museum card EDA analyses
 
-<p align="left">
-  <img src="./museums.gif" width="50%" height="50%"><br>
+We also created interactive bar plots using the Plotly library, which lets viewers explore the volume of museum visits along different dimensions.
+
+<p align="center">
+  <img src="./museums.gif" width="40%" height="40%"> &emsp; &emsp; <img src="./museums2.gif" width=50%" height="50%"> <br>
   <strong>
   </strong>
 </p>
-
-<p align="left">
-  <img src="./museums2.gif" width=75%" height="75%"><br>
-  <strong>
-  </strong>
-</p>
-
 
 ### Getting Started with the Repo
 
