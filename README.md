@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="http://dssg-eu.org/florence/img/dssg_logo_website.svg" width="640"/>
+  <img src="https://github.com/DSSG-EUROPE/florence/blob/master/src/website-template/img/dssg_logo_website.svg" width="640"/>
 </p>
 
 ## Data-Driven Planning for Sustainable Tourism in Tuscany
@@ -7,6 +7,12 @@
 Project website with interactive visualizations: http://dssg-eu.org/florence. 
 
 > Note that images, formatting, and some interactive visualizations are currently not working on the site, because of a change in hosting. We are working to move the hosting service in order to restore the website, but in the mean time, the code underyling the website is still available in this repo at https://github.com/DSSG-EUROPE/florence/tree/master/src/website-template. 
+> You can see what the original site looked like from the Internet Archive snapshots at:
+> - https://web.archive.org/web/20200604211905/http://dssg-eu.org/florence/
+> - https://web.archive.org/web/20180424213525/http://dssg-eu.org/florence/firenze_index.html
+> - https://web.archive.org/web/20180117232959/http://dssg-eu.org/florence/cdr_index.html
+> 
+> The interactive visualizations for these pages still work in the snapshots, although may need reloading. Unfortunately, the "flows" page (http://dssg-eu.org/florence/fountain.html) was a DECK-GL plugin that is not working on the site or on the snapshots in the Internet Archive. 
 
 ### Project & Partners
 Mass tourism is at a tipping point. Larger populations now have the budget for travel and the awareness of historic destinations. High-speed trains and low-cost airlines give greater mobility options. Online resources such as travel information sites, social media, and mapping applications help people aspire to destinations and plan itineraries. Cities working with analog management of their cultural resources may be ill-equipped to react to new patterns of mass tourism. Local, regional, and national governments are asking how they can accommodate tourists and sustain the sector while maintaining the quality of life for residents. 
@@ -19,6 +25,33 @@ Our main data sources were telecom call detail records (CDR) from 1st June 2016 
 
 ### Key questions and Data
 Refer to our final report in `docs/` to get a sense of the key questions we attempted to address with our analysis. The report also contains a description of all of the data sources we received and how we used each source for our analysis.
+
+### Insights 
+
+#### Tourists mouvements throughout Florence
+
+We created interactive visualizations using Uber's DECK-GL library aggregate the movements of users from the different data sources, in time and space, and create 3 dimensional representations of crowding in the city.
+
+<p align="center">
+  <img src="./transitions.gif"><br>
+  <strong>
+  </strong>
+</p>
+
+#### Museum card EDA analyses
+
+<p align="left">
+  <img src="./museums.gif" width="50%" height="50%"><br>
+  <strong>
+  </strong>
+</p>
+
+<p align="left">
+  <img src="./museums2.gif" width=75%" height="75%"><br>
+  <strong>
+  </strong>
+</p>
+
 
 ### Getting Started with the Repo
 
