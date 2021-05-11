@@ -6,7 +6,7 @@
 
 Project website with interactive visualizations: http://dssg-eu.org/florence. 
 
-> Note that images, formatting, and some interactive visualizations are currently not working on the site, because of a change in hosting. We are working to move the hosting service in order to restore the website, but in the mean time, the code underyling the website is still available in this repo https://github.com/DSSG-EUROPE/florence/tree/master/src/website-template. 
+> Note that images, formatting, and some interactive visualizations are currently not working on the site, because of a change in hosting. We are working to move the hosting service in order to restore the website, but in the mean time, the code underyling the website is still available in this repo at https://github.com/DSSG-EUROPE/florence/tree/master/src/website-template. 
 
 ### Project & Partners
 Mass tourism is at a tipping point. Larger populations now have the budget for travel and the awareness of historic destinations. High-speed trains and low-cost airlines give greater mobility options. Online resources such as travel information sites, social media, and mapping applications help people aspire to destinations and plan itineraries. Cities working with analog management of their cultural resources may be ill-equipped to react to new patterns of mass tourism. Local, regional, and national governments are asking how they can accommodate tourists and sustain the sector while maintaining the quality of life for residents. 
