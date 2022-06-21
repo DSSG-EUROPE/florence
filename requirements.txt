@@ -1,7 +1,7 @@
 scipy==0.19.0
 psycopg2==2.7.1
 requests==2.18.3
-numpy==1.13.0
+numpy==1.22.0
 Shapely==1.5.17.post1
 pandas==0.20.2
 plotly==2.0.13
